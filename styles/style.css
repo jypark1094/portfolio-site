@@ -187,6 +187,13 @@ a {
   z-index: 1;
 }
 
+.work-card--mockup {
+  background-color: #1f1f1f;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .work-card__dim {
   position: absolute;
   inset: 0;
@@ -202,6 +209,8 @@ a {
   color: #fff;
   font-size: 16px;
   font-weight: 600;
+  text-align: center;
+  padding: 0 20px;
 }
 
 .work-card:hover .work-card__dim {
@@ -297,10 +306,22 @@ a {
 }
 
 .wm-media-frame {
-  width: 100%;
-  max-width: 460px;
-  aspect-ratio: 3 / 4;
+  height: 670px;
+  width: 1040px;
+  max-width: 100%;
   border-radius: 8px;
+  object-position: center;
+  background-color: #ffffff;
+}
+
+.wm-media-frame.is-empty {
+  background: repeating-linear-gradient(
+    45deg,
+    #ececec,
+    #ececec 10px,
+    #e4e4e4 10px,
+    #e4e4e4 20px
+  );
 }
 
 .project-media {
@@ -318,22 +339,31 @@ a {
 
 .wm-thumbs {
   display: flex;
+  align-items: center;
   justify-content: center;
   gap: 8px;
+  height: 64px;
   overflow-x: auto;
   padding: 4px;
 }
 
 .wm-thumb {
-  width: 64px;
-  height: 64px;
+  width: 40px;
+  height: 40px;
   border-radius: 4px;
   flex-shrink: 0;
+  background-color: #ffffff;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: width 0.2s ease, height 0.2s ease;
 }
 
 .wm-thumb.is-active {
-  outline: 2px solid var(--color-text);
-  outline-offset: 2px;
+  width: 56px;
+  height: 56px;
 }
 
 .wm-info {

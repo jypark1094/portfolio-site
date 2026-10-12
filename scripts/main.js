@@ -45,6 +45,52 @@ const modal = document.getElementById("work-modal");
 const modalTitle = modal.querySelector(".wm-info-title");
 const modalYear = modal.querySelector(".wm-info-year");
 const modalCategories = modal.querySelector(".wm-info-categories");
+const modalMediaFrame = modal.querySelector(".wm-media-frame");
+const modalThumbs = modal.querySelector(".wm-thumbs");
+
+let currentMedia = [];
+
+function showMedia(mediaIndex) {
+  const src = currentMedia[mediaIndex];
+  modalMediaFrame.classList.remove("is-empty");
+  modalMediaFrame.src = src;
+
+  modalThumbs.querySelectorAll(".wm-thumb").forEach((thumb, i) => {
+    thumb.classList.toggle("is-active", i === mediaIndex);
+  });
+}
+
+function renderGallery(card) {
+  let media = [];
+  try {
+    media = JSON.parse(card.dataset.media || "[]");
+  } catch (err) {
+    media = [];
+  }
+  currentMedia = media;
+  modalThumbs.innerHTML = "";
+
+  if (media.length === 0) {
+    modalMediaFrame.classList.add("is-empty");
+    modalMediaFrame.removeAttribute("src");
+    for (let i = 0; i < 5; i += 1) {
+      const thumb = document.createElement("div");
+      thumb.className = "wm-thumb placeholder" + (i === 0 ? " is-active" : "");
+      modalThumbs.appendChild(thumb);
+    }
+    return;
+  }
+
+  media.forEach((src, i) => {
+    const thumb = document.createElement("div");
+    thumb.className = "wm-thumb" + (i === 0 ? " is-active" : "");
+    thumb.style.backgroundImage = `url('${src}')`;
+    thumb.addEventListener("click", () => showMedia(i));
+    modalThumbs.appendChild(thumb);
+  });
+
+  showMedia(0);
+}
 
 function renderModal(index) {
   const card = cardList[index];
@@ -62,6 +108,8 @@ function renderModal(index) {
     span.textContent = tag;
     modalCategories.appendChild(span);
   });
+
+  renderGallery(card);
 
   modal.querySelector(".wm-media").scrollTop = 0;
   modal.querySelector(".wm-info").scrollTop = 0;

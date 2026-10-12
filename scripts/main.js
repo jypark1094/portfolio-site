@@ -33,7 +33,8 @@ filterButtons.forEach((button) => {
     });
 
     workCards.forEach((card) => {
-      const matches = target === "all" || card.dataset.category === target;
+      const categories = card.dataset.category.split(/\s+/);
+      const matches = target === "all" || categories.includes(target);
       card.classList.toggle("is-hidden", !matches);
     });
   });

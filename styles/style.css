@@ -194,6 +194,12 @@ a {
   background-position: center;
 }
 
+.work-card--fill {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+}
+
 .work-card__dim {
   position: absolute;
   inset: 0;

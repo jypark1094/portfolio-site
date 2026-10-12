@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<!-- [NEXTNOW Inc.] -->
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jiyeon Park — Portfolio</title>
+  <link
+    rel="stylesheet"
+    as="style"
+    crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+  />
+  <link rel="stylesheet" href="styles/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="#top">Jiyeon Park</a>
+    <nav class="nav">
+      <a href="#work" class="is-active">Work</a>
+      <a href="#about">About</a>
+    </nav>
+    <a class="contact-link" href="#contact">Contact</a>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <p class="hero__role">Web Designer</p>
+      <h1 class="hero__intro">
+        제품과 사용자 경험을 명료하게 만드는 작업을 합니다.
+      </h1>
+    </section>
+
+    <section id="work" class="work">
+      <div class="filter-bar" role="tablist" aria-label="프로젝트 필터">
+        <button class="filter is-active" data-filter="all" role="tab" aria-selected="true">All</button>
+        <button class="filter" data-filter="web" role="tab" aria-selected="false">
+          <span class="filter__badge">W</span>Web
+        </button>
+        <button class="filter" data-filter="app" role="tab" aria-selected="false">
+          <span class="filter__badge">A</span>App
+        </button>
+      </div>
+
+      <div class="work-grid">
+        <div class="work-col">
+          <div class="work-card placeholder" data-category="web" data-year="2024" data-tags="Web, UI/UX" style="height: 320px">
+            <span class="work-card__dim"><span class="work-card__title">Project One</span></span>
+          </div>
+          <div class="work-card placeholder" data-category="app" data-year="2024" data-tags="App, Mobile" style="height: 240px">
+            <span class="work-card__dim"><span class="work-card__title">Project Two</span></span>
+          </div>
+        </div>
+        <div class="work-col">
+          <div class="work-card placeholder" data-category="app" data-year="2023" data-tags="App" style="height: 260px">
+            <span class="work-card__dim"><span class="work-card__title">Project Three</span></span>
+          </div>
+          <div class="work-card placeholder" data-category="web" data-year="2023" data-tags="Web, Brand" style="height: 380px">
+            <span class="work-card__dim"><span class="work-card__title">Project Four</span></span>
+          </div>
+        </div>
+        <div class="work-col">
+          <div class="work-card placeholder" data-category="web" data-year="2023" data-tags="Web" style="height: 360px">
+            <span class="work-card__dim"><span class="work-card__title">Project Five</span></span>
+          </div>
+          <div class="work-card placeholder" data-category="app" data-year="2022" data-tags="App, Mobile" style="height: 220px">
+            <span class="work-card__dim"><span class="work-card__title">Project Six</span></span>
+          </div>
+        </div>
+        <div class="work-col">
+          <div class="work-card placeholder" data-category="app" data-year="2022" data-tags="App" style="height: 240px">
+            <span class="work-card__dim"><span class="work-card__title">Project Seven</span></span>
+          </div>
+          <div class="work-card placeholder" data-category="web" data-year="2022" data-tags="Web, UI/UX" style="height: 300px">
+            <span class="work-card__dim"><span class="work-card__title">Project Eight</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <h2>About</h2>
+      <p class="placeholder-text">자기소개 텍스트가 들어갈 자리입니다.</p>
+    </section>
+  </main>
+
+  <footer id="contact" class="site-footer">
+    <span>jy.park@nextnow.kr</span>
+    <a href="#top">Top ↑</a>
+  </footer>
+
+  <div class="work-modal" id="work-modal" aria-hidden="true">
+    <button class="wm-close" aria-label="닫기">&times;</button>
+    <div class="wm-media">
+      <div class="wm-media-holder">
+        <div class="wm-media-frame placeholder"></div>
+      </div>
+      <div class="project-media">
+        <p class="wm-media-label">Project media</p>
+        <div class="wm-thumbs">
+          <div class="wm-thumb placeholder is-active"></div>
+          <div class="wm-thumb placeholder"></div>
+          <div class="wm-thumb placeholder"></div>
+          <div class="wm-thumb placeholder"></div>
+          <div class="wm-thumb placeholder"></div>
+        </div>
+      </div>
+    </div>
+    <div class="wm-info">
+      <div class="wm-info-header">
+        <h2 class="wm-info-title">Project title</h2>
+        <p class="wm-info-year">2024</p>
+        <div class="wm-info-categories"></div>
+      </div>
+      <div class="wm-info-content">
+        <p class="lg-text">Project info</p>
+        <p class="body-text project-description">프로젝트 설명이 들어갈 자리입니다.</p>
+        <a class="wm-info-link" href="#">Full case study on Behance</a>
+      </div>
+      <div class="wm-credits">
+        <p class="lg-text">Credits</p>
+        <p class="body-text">Design <span>Jiyeon Park</span></p>
+        <p class="body-text">Development <span>Jiyeon Park</span></p>
+      </div>
+      <div class="wm-footer">
+        <button class="wm-arrow" data-dir="prev" aria-label="이전 프로젝트">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 12H5M5 12L11 6M5 12L11 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <button class="wm-arrow" data-dir="next" aria-label="다음 프로젝트">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="scripts/main.js"></script>
+</body>
+</html>

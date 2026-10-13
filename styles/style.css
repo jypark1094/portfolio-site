@@ -415,6 +415,10 @@ a {
   gap: 8px;
 }
 
+.wm-credits.is-hidden {
+  display: none;
+}
+
 .wm-credits .body-text {
   display: flex;
   justify-content: space-between;

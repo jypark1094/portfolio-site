@@ -67,6 +67,11 @@ const modalYear = modal.querySelector(".wm-info-year");
 const modalCategories = modal.querySelector(".wm-info-categories");
 const modalMediaFrame = modal.querySelector(".wm-media-frame");
 const modalThumbs = modal.querySelector(".wm-thumbs");
+const modalDescription = modal.querySelector(".project-description");
+const modalCredits = modal.querySelector(".wm-credits");
+const modalCreditsRows = modal.querySelector(".wm-credits-rows");
+
+const DEFAULT_DESCRIPTION = "프로젝트 설명이 들어갈 자리입니다.";
 
 let currentMedia = [];
 
@@ -130,6 +135,26 @@ function renderModal(index) {
   });
 
   renderGallery(card);
+
+  modalDescription.textContent = card.dataset.description || DEFAULT_DESCRIPTION;
+
+  let details = [];
+  try {
+    details = JSON.parse(card.dataset.details || "[]");
+  } catch (err) {
+    details = [];
+  }
+  modalCreditsRows.innerHTML = "";
+  details.forEach((row) => {
+    const p = document.createElement("p");
+    p.className = "body-text";
+    p.append(`${row.role} `);
+    const span = document.createElement("span");
+    span.textContent = row.name;
+    p.appendChild(span);
+    modalCreditsRows.appendChild(p);
+  });
+  modalCredits.classList.toggle("is-hidden", details.length === 0);
 
   modal.querySelector(".wm-media").scrollTop = 0;
   modal.querySelector(".wm-info").scrollTop = 0;

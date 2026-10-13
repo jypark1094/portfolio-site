@@ -24,7 +24,6 @@ const filterButtons = document.querySelectorAll(".filter");
 const workCards = document.querySelectorAll(".work-card");
 
 const workGrid = document.querySelector(".work-grid");
-const GRID_GAP = 24;
 
 const columnEls = workGrid
   ? Array.from(workGrid.querySelectorAll(":scope > .work-col"))
@@ -42,7 +41,7 @@ function restoreOriginalLayout() {
 
 function reflowFilteredLayout(target) {
   const allCardsInOrder = originalColumnCards.flat();
-  const heights = new Array(columnEls.length).fill(0);
+  let nextColumn = 0;
 
   allCardsInOrder.forEach((card) => {
     const categories = card.dataset.category.split(/\s+/);
@@ -50,12 +49,8 @@ function reflowFilteredLayout(target) {
       hiddenPool.appendChild(card);
       return;
     }
-    let shortest = 0;
-    for (let i = 1; i < heights.length; i += 1) {
-      if (heights[i] < heights[shortest]) shortest = i;
-    }
-    columnEls[shortest].appendChild(card);
-    heights[shortest] += (parseInt(card.style.height, 10) || 0) + GRID_GAP;
+    columnEls[nextColumn].appendChild(card);
+    nextColumn = (nextColumn + 1) % columnEls.length;
   });
 }
 

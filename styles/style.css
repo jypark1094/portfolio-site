@@ -302,6 +302,8 @@ a {
   width: 100%;
   height: auto;
   aspect-ratio: 1024 / 914;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .phone-mockup--two .phone-mockup__screen {
@@ -314,25 +316,25 @@ a {
 }
 
 .phone-mockup--two .phone-mockup__shot {
-  animation: phone-shot-slide-bounce 6s ease-in-out infinite;
+  animation: phone-shot-slide-bounce 7.5s ease-in-out infinite;
 }
 
 @keyframes phone-shot-slide-bounce {
   0%,
-  4% {
+  3% {
     transform: translateY(0%);
   }
-  50% {
+  60% {
     transform: translateY(-77.82%);
   }
-  54% {
+  64% {
     transform: translateY(-80%);
   }
-  58%,
-  64% {
+  68%,
+  74% {
     transform: translateY(-77.82%);
   }
-  70%,
+  80%,
   100% {
     transform: translateY(0%);
   }

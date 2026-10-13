@@ -193,7 +193,7 @@ a {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("../assets/sk-background.jpg");
+  background-image: url("../assets/sk-background-v2.png");
   background-size: 230% 230%;
   background-repeat: no-repeat;
   animation: card-drift 22s ease-in-out infinite;

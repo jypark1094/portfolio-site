@@ -24,6 +24,40 @@ const filterButtons = document.querySelectorAll(".filter");
 const workCards = document.querySelectorAll(".work-card");
 
 const workGrid = document.querySelector(".work-grid");
+const GRID_GAP = 24;
+
+const columnEls = workGrid
+  ? Array.from(workGrid.querySelectorAll(":scope > .work-col"))
+  : [];
+const originalColumnCards = columnEls.map((col) => Array.from(col.children));
+const hiddenPool = document.createElement("div");
+hiddenPool.style.display = "none";
+document.body.appendChild(hiddenPool);
+
+function restoreOriginalLayout() {
+  columnEls.forEach((col, i) => {
+    originalColumnCards[i].forEach((card) => col.appendChild(card));
+  });
+}
+
+function reflowFilteredLayout(target) {
+  const allCardsInOrder = originalColumnCards.flat();
+  const heights = new Array(columnEls.length).fill(0);
+
+  allCardsInOrder.forEach((card) => {
+    const categories = card.dataset.category.split(/\s+/);
+    if (!categories.includes(target)) {
+      hiddenPool.appendChild(card);
+      return;
+    }
+    let shortest = 0;
+    for (let i = 1; i < heights.length; i += 1) {
+      if (heights[i] < heights[shortest]) shortest = i;
+    }
+    columnEls[shortest].appendChild(card);
+    heights[shortest] += (parseInt(card.style.height, 10) || 0) + GRID_GAP;
+  });
+}
 
 workCards.forEach((card, index) => {
   card.style.transitionDelay = `${Math.min(index * 70, 420)}ms`;
@@ -56,6 +90,12 @@ filterButtons.forEach((button) => {
       const matches = target === "all" || categories.includes(target);
       card.classList.toggle("is-hidden", !matches);
     });
+
+    if (target === "all") {
+      restoreOriginalLayout();
+    } else {
+      reflowFilteredLayout(target);
+    }
   });
 });
 

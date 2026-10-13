@@ -300,7 +300,7 @@ a {
 
 .phone-mockup--two {
   width: auto;
-  height: 112%;
+  height: 100%;
   aspect-ratio: 1024 / 914;
   border-radius: 12px;
   overflow: hidden;

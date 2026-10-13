@@ -294,6 +294,7 @@ a {
   width: 1040px;
   max-width: 100%;
   border-radius: 8px;
+  object-fit: contain;
   object-position: center;
   background-color: #ffffff;
 }

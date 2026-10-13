@@ -196,7 +196,7 @@ a {
   background-image: url("../assets/sk-background.jpg");
   background-size: 230% 230%;
   background-repeat: no-repeat;
-  animation: card-drift 14s ease-in-out infinite;
+  animation: card-drift 22s ease-in-out infinite;
 }
 
 .work-card__logo {
@@ -214,19 +214,22 @@ a {
 
 @keyframes card-drift {
   0% {
-    background-position: 20% 30%;
+    background-position: 46% 42%;
   }
-  25% {
-    background-position: 78% 12%;
+  20% {
+    background-position: 58% 46%;
   }
-  50% {
-    background-position: 82% 78%;
+  40% {
+    background-position: 56% 60%;
   }
-  75% {
-    background-position: 22% 82%;
+  60% {
+    background-position: 44% 58%;
+  }
+  80% {
+    background-position: 38% 46%;
   }
   100% {
-    background-position: 20% 30%;
+    background-position: 46% 42%;
   }
 }
 

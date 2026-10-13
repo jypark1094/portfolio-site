@@ -189,14 +189,25 @@ a {
   background-position: top center;
 }
 
+/* The logo must never move: lock the outer card's transform in every
+   state (base/entrance, hover, revealed), overriding the shared
+   .work-card rules above. Only the ::before background and the dim
+   overlay are allowed to animate. */
+.work-card--drift,
+.work-card--drift.is-revealed,
+.work-card--drift:hover {
+  transform: none;
+}
+
 .work-card--drift::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("../assets/sk-background-v2.png");
-  background-size: 230% 230%;
+  background-image: url("../assets/sk-background-v3.webp");
+  background-size: 220% 100%;
   background-repeat: no-repeat;
-  animation: card-drift 22s ease-in-out infinite;
+  background-position: 0% 50%;
+  animation: card-drift 16s linear infinite alternate;
 }
 
 .work-card__logo {
@@ -214,22 +225,10 @@ a {
 
 @keyframes card-drift {
   0% {
-    background-position: 46% 42%;
-  }
-  20% {
-    background-position: 58% 46%;
-  }
-  40% {
-    background-position: 56% 60%;
-  }
-  60% {
-    background-position: 44% 58%;
-  }
-  80% {
-    background-position: 38% 46%;
+    background-position: 0% 50%;
   }
   100% {
-    background-position: 46% 42%;
+    background-position: 100% 50%;
   }
 }
 

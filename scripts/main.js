@@ -23,6 +23,25 @@ sections.forEach((section) => observer.observe(section));
 const filterButtons = document.querySelectorAll(".filter");
 const workCards = document.querySelectorAll(".work-card");
 
+const workGrid = document.querySelector(".work-grid");
+
+workCards.forEach((card, index) => {
+  card.style.transitionDelay = `${Math.min(index * 70, 420)}ms`;
+});
+
+const revealObserver = new IntersectionObserver(
+  (entries, obs) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      workCards.forEach((card) => card.classList.add("is-revealed"));
+      obs.disconnect();
+    });
+  },
+  { threshold: 0.01 }
+);
+
+if (workGrid) revealObserver.observe(workGrid);
+
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const target = button.dataset.filter;

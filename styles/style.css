@@ -399,6 +399,27 @@ a {
   padding: 16px 0;
 }
 
+.wm-media-mockup-slot {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  height: 670px;
+  width: 1040px;
+  max-width: 100%;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.phone-mockup-stage {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.wm-thumb .phone-mockup-stage {
+  pointer-events: none;
+}
+
 .wm-media-frame {
   height: 670px;
   width: 1040px;
@@ -447,6 +468,7 @@ a {
   height: 40px;
   border-radius: 4px;
   flex-shrink: 0;
+  overflow: hidden;
   background-color: #ffffff;
   background-size: cover;
   background-repeat: no-repeat;

@@ -66,6 +66,7 @@ const modalTitle = modal.querySelector(".wm-info-title");
 const modalYear = modal.querySelector(".wm-info-year");
 const modalCategories = modal.querySelector(".wm-info-categories");
 const modalMediaFrame = modal.querySelector(".wm-media-frame");
+const modalMediaMockupSlot = modal.querySelector(".wm-media-mockup-slot");
 const modalThumbs = modal.querySelector(".wm-thumbs");
 const modalDescription = modal.querySelector(".project-description");
 const modalCredits = modal.querySelector(".wm-credits");
@@ -74,11 +75,26 @@ const modalCreditsRows = modal.querySelector(".wm-credits-rows");
 const DEFAULT_DESCRIPTION = "프로젝트 설명이 들어갈 자리입니다.";
 
 let currentMedia = [];
+let currentMockupSource = null;
 
 function showMedia(mediaIndex) {
   const src = currentMedia[mediaIndex];
-  modalMediaFrame.classList.remove("is-empty");
-  modalMediaFrame.src = src;
+
+  if (src === "mockup" && currentMockupSource) {
+    modalMediaFrame.style.display = "none";
+    modalMediaMockupSlot.style.display = "flex";
+    modalMediaMockupSlot.innerHTML = "";
+    const stage = document.createElement("div");
+    stage.className = "phone-mockup-stage";
+    stage.appendChild(currentMockupSource.cloneNode(true));
+    modalMediaMockupSlot.appendChild(stage);
+  } else {
+    modalMediaMockupSlot.style.display = "none";
+    modalMediaMockupSlot.innerHTML = "";
+    modalMediaFrame.style.display = "";
+    modalMediaFrame.classList.remove("is-empty");
+    modalMediaFrame.src = src;
+  }
 
   modalThumbs.querySelectorAll(".wm-thumb").forEach((thumb, i) => {
     thumb.classList.toggle("is-active", i === mediaIndex);
@@ -93,9 +109,13 @@ function renderGallery(card) {
     media = [];
   }
   currentMedia = media;
+  currentMockupSource = card.querySelector(".phone-mockup");
   modalThumbs.innerHTML = "";
 
   if (media.length === 0) {
+    modalMediaMockupSlot.style.display = "none";
+    modalMediaMockupSlot.innerHTML = "";
+    modalMediaFrame.style.display = "";
     modalMediaFrame.classList.add("is-empty");
     modalMediaFrame.removeAttribute("src");
     for (let i = 0; i < 5; i += 1) {
@@ -109,7 +129,15 @@ function renderGallery(card) {
   media.forEach((src, i) => {
     const thumb = document.createElement("div");
     thumb.className = "wm-thumb" + (i === 0 ? " is-active" : "");
-    thumb.style.backgroundImage = `url('${src}')`;
+    if (src === "mockup" && currentMockupSource) {
+      thumb.classList.add("wm-thumb--mockup");
+      const stage = document.createElement("div");
+      stage.className = "phone-mockup-stage";
+      stage.appendChild(currentMockupSource.cloneNode(true));
+      thumb.appendChild(stage);
+    } else {
+      thumb.style.backgroundImage = `url('${src}')`;
+    }
     thumb.addEventListener("click", () => showMedia(i));
     modalThumbs.appendChild(thumb);
   });

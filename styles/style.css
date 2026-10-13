@@ -189,6 +189,34 @@ a {
   background-position: top center;
 }
 
+.work-card--drift {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.work-card--drift::before {
+  content: "";
+  position: absolute;
+  inset: -12%;
+  background-image: inherit;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform-origin: center;
+  animation: card-drift 16s ease-in-out infinite;
+}
+
+@keyframes card-drift {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
 .work-card__dim {
   position: absolute;
   inset: 0;

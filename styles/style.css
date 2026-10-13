@@ -298,6 +298,46 @@ a {
   }
 }
 
+.phone-mockup--two {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1024 / 914;
+}
+
+.phone-mockup--two .phone-mockup__screen {
+  left: 32.52%;
+  top: 10.613%;
+  width: 35.059%;
+  height: 82.932%;
+  background-color: #d9d9d9;
+  border-radius: 6% / 3%;
+}
+
+.phone-mockup--two .phone-mockup__shot {
+  animation: phone-shot-slide-bounce 6s ease-in-out infinite;
+}
+
+@keyframes phone-shot-slide-bounce {
+  0%,
+  4% {
+    transform: translateY(0%);
+  }
+  50% {
+    transform: translateY(-77.82%);
+  }
+  54% {
+    transform: translateY(-80%);
+  }
+  58%,
+  64% {
+    transform: translateY(-77.82%);
+  }
+  70%,
+  100% {
+    transform: translateY(0%);
+  }
+}
+
 .work-card__dim {
   position: absolute;
   inset: 0;

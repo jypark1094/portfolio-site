@@ -189,31 +189,38 @@ a {
   background-position: top center;
 }
 
-.work-card--drift {
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
 .work-card--drift::before {
   content: "";
   position: absolute;
-  inset: -12%;
-  background-image: inherit;
+  inset: -15%;
+  background-image: url("../assets/sk-background.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   transform-origin: center;
-  animation: card-drift 16s ease-in-out infinite;
+  animation: card-drift 20s ease-in-out infinite;
+}
+
+.work-card__logo {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 62%;
+  aspect-ratio: 425 / 332;
+  z-index: 1;
+}
+
+.work-card__logo-piece {
+  position: absolute;
 }
 
 @keyframes card-drift {
   0%,
   100% {
-    transform: scale(1);
+    transform: scale(1.1) translate(0, 0);
   }
   50% {
-    transform: scale(1.08);
+    transform: scale(1.18) translate(-2%, 1.5%);
   }
 }
 

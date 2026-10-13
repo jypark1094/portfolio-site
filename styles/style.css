@@ -192,20 +192,18 @@ a {
 .work-card--drift::before {
   content: "";
   position: absolute;
-  inset: -15%;
+  inset: 0;
   background-image: url("../assets/sk-background.jpg");
-  background-size: cover;
+  background-size: 230% 230%;
   background-repeat: no-repeat;
-  background-position: center;
-  transform-origin: center;
-  animation: card-drift 20s ease-in-out infinite;
+  animation: card-drift 14s ease-in-out infinite;
 }
 
 .work-card__logo {
   position: absolute;
   inset: 0;
   margin: auto;
-  width: 62%;
+  width: 46%;
   aspect-ratio: 425 / 332;
   z-index: 1;
 }
@@ -215,12 +213,20 @@ a {
 }
 
 @keyframes card-drift {
-  0%,
-  100% {
-    transform: scale(1.1) translate(0, 0);
+  0% {
+    background-position: 20% 30%;
+  }
+  25% {
+    background-position: 78% 12%;
   }
   50% {
-    transform: scale(1.18) translate(-2%, 1.5%);
+    background-position: 82% 78%;
+  }
+  75% {
+    background-position: 22% 82%;
+  }
+  100% {
+    background-position: 20% 30%;
   }
 }
 

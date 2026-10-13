@@ -316,25 +316,19 @@ a {
 }
 
 .phone-mockup--two .phone-mockup__shot {
-  animation: phone-shot-slide-bounce 9s ease-in-out infinite;
+  animation: phone-shot-slide-pause 10s ease-in-out infinite;
 }
 
-@keyframes phone-shot-slide-bounce {
+@keyframes phone-shot-slide-pause {
   0%,
   3% {
     transform: translateY(0%);
   }
-  65% {
+  70%,
+  78% {
     transform: translateY(-77.82%);
   }
-  68% {
-    transform: translateY(-78.5%);
-  }
-  71%,
-  76% {
-    transform: translateY(-77.82%);
-  }
-  82%,
+  84%,
   100% {
     transform: translateY(0%);
   }

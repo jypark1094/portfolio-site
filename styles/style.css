@@ -248,9 +248,9 @@ a {
 .phone-mockup__screen {
   position: absolute;
   left: 5.634%;
-  top: 2.385%;
+  top: 2.327%;
   width: 88.615%;
-  height: 95.172%;
+  height: 95.23%;
   overflow: hidden;
   border-radius: 8% / 4%;
 }
@@ -261,7 +261,7 @@ a {
   top: 0;
   width: 100%;
   height: auto;
-  animation: phone-shot-slide 16s ease-in-out infinite;
+  animation: phone-shot-slide 9s ease-in-out infinite;
 }
 
 .phone-mockup__frame {
@@ -277,9 +277,12 @@ a {
   8% {
     transform: translateY(0);
   }
-  92%,
-  100% {
+  46%,
+  58% {
     transform: translateY(-45.8%);
+  }
+  100% {
+    transform: translateY(0);
   }
 }
 

@@ -232,6 +232,57 @@ a {
   }
 }
 
+.work-card--mockup-slide {
+  background: #ffffff;
+}
+
+.phone-mockup {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 92%;
+  aspect-ratio: 852 / 1719;
+}
+
+.phone-mockup__screen {
+  position: absolute;
+  left: 5.634%;
+  top: 2.385%;
+  width: 88.615%;
+  height: 95.172%;
+  overflow: hidden;
+  border-radius: 8% / 4%;
+}
+
+.phone-mockup__shot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: auto;
+  animation: phone-shot-slide 16s ease-in-out infinite;
+}
+
+.phone-mockup__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+@keyframes phone-shot-slide {
+  0%,
+  8% {
+    transform: translateY(0);
+  }
+  92%,
+  100% {
+    transform: translateY(-45.8%);
+  }
+}
+
 .work-card__dim {
   position: absolute;
   inset: 0;

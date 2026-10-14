@@ -423,6 +423,7 @@ a {
   flex-direction: column;
   gap: 32px;
   height: 100vh;
+  min-width: 0;
   overflow-y: auto;
   padding: 24px 16px;
 }
@@ -432,6 +433,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 0;
   padding: 16px 0;
 }
 
@@ -442,6 +444,7 @@ a {
   height: 670px;
   width: 1040px;
   max-width: 100%;
+  min-width: 0;
   border-radius: 8px;
   background-color: #ffffff;
 }
@@ -450,6 +453,19 @@ a {
   position: relative;
   height: 100%;
   width: 100%;
+}
+
+/* Inside the modal's fixed-height slot, .phone-mockup's card-only
+   "cover" sizing (height-driven, width derived from aspect-ratio) can
+   render wider than the slot on narrow viewports. Refit by width here
+   instead, and cap the tall variant as a safety net. */
+.wm-media-mockup-slot .phone-mockup--two {
+  width: 100%;
+  height: auto;
+}
+
+.wm-media-mockup-slot .phone-mockup {
+  max-width: 100%;
 }
 
 .wm-thumb .phone-mockup-stage {

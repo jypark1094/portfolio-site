@@ -1,5 +1,3 @@
-// [NEXTNOW Inc.]
-
 const sections = document.querySelectorAll("main section[id]");
 const navLinks = document.querySelectorAll(".nav a");
 
@@ -223,6 +221,25 @@ function renderModal(index) {
   modal.querySelector(".wm-info").scrollTop = 0;
 }
 
+let activeIndex = 0;
+
+// A card can be opened/navigated to only if it's a real project
+// (not a placeholder) and it's visible under the current filter.
+function isNavigable(card) {
+  return (
+    !card.classList.contains("placeholder") &&
+    !card.classList.contains("is-hidden")
+  );
+}
+
+function findNextIndex(fromIndex, direction) {
+  for (let step = 1; step <= cardList.length; step += 1) {
+    const i = (fromIndex + direction * step + cardList.length * step) % cardList.length;
+    if (isNavigable(cardList[i])) return i;
+  }
+  return fromIndex;
+}
+
 function openModal(index) {
   activeIndex = index;
   renderModal(activeIndex);
@@ -238,7 +255,10 @@ function closeModal() {
 }
 
 cardList.forEach((card, index) => {
-  card.addEventListener("click", () => openModal(index));
+  card.addEventListener("click", () => {
+    if (!isNavigable(card)) return;
+    openModal(index);
+  });
 });
 
 modal.querySelector(".wm-close").addEventListener("click", closeModal);
@@ -246,7 +266,7 @@ modal.querySelector(".wm-close").addEventListener("click", closeModal);
 modal.querySelectorAll(".wm-arrow").forEach((button) => {
   button.addEventListener("click", () => {
     const direction = button.dataset.dir === "next" ? 1 : -1;
-    activeIndex = (activeIndex + direction + cardList.length) % cardList.length;
+    activeIndex = findNextIndex(activeIndex, direction);
     renderModal(activeIndex);
   });
 });

@@ -455,17 +455,24 @@ a {
   width: 100%;
 }
 
-/* Inside the modal's fixed-height slot, .phone-mockup's card-only
-   "cover" sizing (height-driven, width derived from aspect-ratio) can
-   render wider than the slot on narrow viewports. Refit by width here
-   instead, and cap the tall variant as a safety net. */
-.wm-media-mockup-slot .phone-mockup--two {
-  width: 100%;
-  height: auto;
+/* Inside the modal, .phone-mockup's card-only "cover" sizing
+   (one dimension fixed, the other derived from aspect-ratio) can
+   overflow the slot on one axis or the other depending on viewport
+   width. Refit it to "contain" within the slot on both axes using
+   container query units, so it always stays fully visible and
+   centered regardless of viewport size. */
+.wm-media-mockup-slot .phone-mockup-stage {
+  container-type: size;
 }
 
 .wm-media-mockup-slot .phone-mockup {
-  max-width: 100%;
+  width: min(100cqw, 100cqh * 852 / 1719);
+  height: min(100cqh, 100cqw * 1719 / 852);
+}
+
+.wm-media-mockup-slot .phone-mockup--two {
+  width: min(100cqw, 100cqh * 1024 / 914);
+  height: min(100cqh, 100cqw * 914 / 1024);
 }
 
 .wm-thumb .phone-mockup-stage {

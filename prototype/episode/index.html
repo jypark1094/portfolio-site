@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Episode — Interactive Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" />
+  <link
+    rel="stylesheet"
+    as="style"
+    crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+  />
+  <link rel="stylesheet" href="app.css?v=3" />
+</head>
+<body>
+  <!--
+    Interactive prototype of the Episode resident app home screen
+    (Figma: 1.0.0_Main). All data is demo data; nothing is sent anywhere.
+  -->
+  <div class="app" id="app">
+    <header class="app-header" id="app-header">
+      <div class="statusbar" aria-hidden="true">
+        <span class="statusbar__time">9:41</span>
+        <span class="statusbar__icons">
+          <svg width="17" height="11" viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" /><rect x="4.5" y="5" width="3" height="6" rx="1" /><rect x="9" y="2.5" width="3" height="8.5" rx="1" /><rect x="13.5" y="0" width="3" height="11" rx="1" /></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="currentColor" opacity="0.4" /><rect x="2" y="2" width="14" height="8" rx="1.6" /><rect x="23" y="4" width="1.5" height="4" rx="0.75" opacity="0.4" /></svg>
+        </span>
+      </div>
+      <div class="navbar">
+        <span class="ep-logo" aria-label="Episode">ep<i></i>.</span>
+        <button class="icon-btn bell" data-action="out-of-scope" data-name="알림" aria-label="알림">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 17V11a6 6 0 1 1 12 0v6l1.5 1.5H4.5L6 17Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" /><path d="M10 20.5a2 2 0 0 0 4 0" stroke="currentColor" stroke-width="1.6" /></svg>
+          <span class="bell__dot"></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="app-scroll" id="app-scroll">
+      <!-- 01_Profile_area -->
+      <button class="profile" data-action="residence" aria-haspopup="dialog">
+        <img class="profile__avatar" src="assets/profile-user2.png" width="48" height="48" alt="" />
+        <span class="profile__text">
+          <span class="profile__hello">HELLO, <b>지오</b></span>
+          <span class="profile__home"><span id="residence-label">EPISODE SINCHON 369, 1501<span class="ko">호</span></span>
+            <img src="assets/icon-arrow-down-16.svg" width="9" height="5" alt="" />
+          </span>
+        </span>
+      </button>
+
+      <!-- 02_Today -->
+      <section class="today">
+        <div class="hscroll" data-snap>
+          <button class="today-card" data-action="out-of-scope" data-name="관리비 상세">
+            <span class="today-card__dday">D<em>-15</em></span>
+            <span class="today-card__body">
+              <span class="today-card__sub">9월 관리비 청구서가 나왔어요!</span>
+              <span class="today-card__title"><span class="num">190,000</span>원</span>
+            </span>
+            <span class="page-chip page-chip--w">1 / 2</span>
+          </button>
+          <button class="today-card" data-action="out-of-scope" data-name="엣피 가이드">
+            <span class="today-card__body today-card__body--wide">
+              <span class="today-card__sub">에피라이프의 궁금증을 풀어드릴께요 🤗</span>
+              <span class="today-card__title">엣피된지 1주일차!
+                <img class="today-card__arrow" src="assets/icon-back-28.svg" width="15" height="9" alt="" />
+              </span>
+            </span>
+            <span class="page-chip page-chip--w">2 / 2</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 02_Convenience Service -->
+      <section class="sec">
+        <div class="sec-head">
+          <p class="sec-label">주거 생활을 편리하게</p>
+          <h2 class="sec-title">불편한 점이 있다면 알려주세요</h2>
+        </div>
+        <div class="stack">
+          <div class="req-card">
+            <div class="hscroll hscroll--inner" data-snap>
+              <article class="req-slide">
+                <div class="req-top">
+                  <span class="chip">수리</span>
+                  <button class="link-btn" data-action="out-of-scope" data-name="수리 요청">요청하기 <i class="chev"></i></button>
+                </div>
+                <p class="req-title">냉장고 수리</p>
+                <ol class="process" aria-label="진행 상태: 처리 중">
+                  <li class="is-done">접수</li>
+                  <li class="is-current">처리 중</li>
+                  <li>처리완료</li>
+                  <li>완료</li>
+                </ol>
+                <span class="page-chip">1 / 2</span>
+              </article>
+              <article class="req-slide">
+                <div class="req-top">
+                  <span class="chip">수리</span>
+                  <button class="link-btn" data-action="out-of-scope" data-name="수리 요청">요청하기 <i class="chev"></i></button>
+                </div>
+                <p class="req-title">전기오븐 고장</p>
+                <ol class="process" aria-label="진행 상태: 접수">
+                  <li class="is-current">접수</li>
+                  <li>처리 중</li>
+                  <li>처리완료</li>
+                  <li>완료</li>
+                </ol>
+                <span class="page-chip">2 / 2</span>
+              </article>
+            </div>
+          </div>
+          <div class="req-card">
+            <div class="hscroll hscroll--inner" data-snap>
+              <article class="req-slide">
+                <div class="req-top">
+                  <span class="chip">문의</span>
+                  <strong class="req-kind">민원 접수</strong>
+                  <button class="link-btn" data-action="out-of-scope" data-name="민원 문의">문의하기 <i class="chev"></i></button>
+                </div>
+                <p class="req-title req-title--regular">관리비 고지서를 잃어버렸습니다.</p>
+                <p class="req-status">처리 중입니다.</p>
+                <span class="page-chip">1 / 2</span>
+              </article>
+              <article class="req-slide">
+                <div class="req-top">
+                  <span class="chip">문의</span>
+                  <strong class="req-kind">민원 접수</strong>
+                  <button class="link-btn" data-action="out-of-scope" data-name="민원 문의">문의하기 <i class="chev"></i></button>
+                </div>
+                <p class="req-title req-title--regular">정기주차 등록은 어떻게 하나요?</p>
+                <p class="req-status req-status--done">답변이 완료되었습니다.</p>
+                <span class="page-chip">2 / 2</span>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03_Notice & Blog -->
+      <section class="sec">
+        <div class="sec-head">
+          <p class="sec-label">공지와 블로그</p>
+          <h2 class="sec-title">엣피라면 필수 체크!</h2>
+        </div>
+        <div class="stack">
+          <div class="notice-card">
+            <div class="req-top">
+              <span class="chip">공지</span>
+              <button class="link-btn" data-action="out-of-scope" data-name="공지 목록">더보기 <i class="chev"></i></button>
+            </div>
+            <ul class="notice-list">
+              <li><button data-action="out-of-scope" data-name="공지 상세"><span class="notice-list__title is-new">공지사항입니다.</span><span class="date">22.04.14</span></button></li>
+              <li><button data-action="out-of-scope" data-name="공지 상세"><span class="notice-list__title">건물 출입 시 코로나 유의사항</span><span class="date">22.03.29</span></button></li>
+              <li><button data-action="out-of-scope" data-name="공지 상세"><span class="notice-list__title">성수101에 신규 추가된 시설을 안내드립니다</span><span class="date">22.03.26</span></button></li>
+            </ul>
+          </div>
+        </div>
+        <div class="hscroll hscroll--blog">
+          <button class="blog-card" data-action="out-of-scope" data-name="블로그">
+            <img class="photo" src="assets/photos/blog-hongdae.jpg" alt="" decoding="async" />
+            <span class="tag-label">블로그</span>
+            <span class="blog-card__text">[홍대 787] 멋으로 먹고 맛으로 먹는 푸드...</span>
+          </button>
+          <button class="blog-card" data-action="out-of-scope" data-name="블로그">
+            <img class="photo" src="assets/photos/blog-guui.jpg" alt="" decoding="async" />
+            <span class="tag-label">블로그</span>
+            <span class="blog-card__text">[구의 389] 에피소드 구의를 소개합니다.</span>
+          </button>
+          <button class="blog-card" data-action="out-of-scope" data-name="블로그">
+            <img class="photo" src="assets/photos/blog-seongsu.jpg" alt="" decoding="async" />
+            <span class="tag-label">블로그</span>
+            <span class="blog-card__text">[성수 101] 에피소드 성수를 소개합니다.</span>
+          </button>
+          <button class="more-card" data-action="out-of-scope" data-name="블로그 목록">
+            <span class="more-card__circle"><i class="chev chev--lg"></i></span>더보기
+          </button>
+        </div>
+      </section>
+
+      <!-- Epiverse popular tags -->
+      <section class="sec">
+        <div class="sec-head">
+          <p class="sec-label">엣피버스!</p>
+          <h2 class="sec-title">#오늘의 인기 태그</h2>
+        </div>
+        <div class="hscroll hscroll--cards">
+          <button class="post-card" data-action="out-of-scope" data-name="엣피버스 게시글">
+            <span class="post-card__media"><img class="photo" src="assets/photos/tag-cat.jpg" alt="" decoding="async" /><span class="tag-label">#집사의하루</span></span>
+            <span class="post-card__body">
+              <span class="post-card__text">안녕하세요. 뿌쮸언니에요. 저희집 말썽꾸러기 시루를 소개해드리..</span>
+              <span class="post-card__meta"><span class="cmt">16</span><span>😆 7</span><span>🥰 3</span><span class="time">1분전</span></span>
+            </span>
+          </button>
+          <button class="post-card" data-action="out-of-scope" data-name="엣피버스 게시글">
+            <span class="post-card__media"><img class="photo" src="assets/photos/tag-room.png" alt="" decoding="async" /><span class="tag-label">#랜선집들이</span></span>
+            <span class="post-card__body">
+              <span class="post-card__text">자취 8년차 인테리어 디자이너입니다. 입주한지 1달째인 저희집의 랜선집들...</span>
+              <span class="post-card__meta"><span class="cmt">8</span><span>👍 12</span><span>😆 7</span><span class="time">39분전</span></span>
+            </span>
+          </button>
+          <button class="post-card post-card--purple" data-action="out-of-scope" data-name="엣피버스 게시글">
+            <span class="post-card__media"><span class="tag-label tag-label--purple">#인테리어</span><span class="post-card__quote">살림에 도움이 되고 인테리어에 도움이 되는 살림잇템을 소개해드려요.</span></span>
+            <span class="post-card__body">
+              <span class="post-card__meta"><span class="cmt">30</span><span>👍 21</span><span>🥰 5</span><span class="time">어제</span></span>
+            </span>
+          </button>
+          <div class="post-card post-card--epiverse">
+            <span class="ep-logo ep-logo--lg" aria-label="Episode Verse">ep<i><small>VERSE</small></i></span>
+            <button class="btn-purple" data-action="out-of-scope" data-name="엣피버스">엣피버스 바로가기</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05_Banner -->
+      <section class="banner-sec">
+        <div class="hscroll" data-snap>
+          <button class="banner banner--lavender" data-action="out-of-scope" data-name="제휴 혜택">
+            <img class="banner__drink" src="assets/photos/banner-drink.png" alt="" />
+            <span class="banner__body">
+              <span class="banner__title">스타벅스 <em class="red">스트로베리 할인</em></span>
+              <span class="banner__desc"><em class="red">엣피</em>라면 스타벅스에서<br />러블리 딸기 라떼가 10% 할인!</span>
+            </span>
+            <span class="page-chip page-chip--d">1 / 2</span>
+          </button>
+          <button class="banner banner--mint" data-action="out-of-scope" data-name="제휴 혜택">
+            <img class="banner__drink" src="assets/photos/banner-drink.png" alt="" />
+            <span class="banner__body">
+              <span class="banner__title">쉐이크쉑 <em class="green">딜리버리 FREE</em></span>
+              <span class="banner__desc"><em class="green">에피소드 수유 838 입주민</em>이라면<br />쉐이크쉑 수유점에서 주문하세요!</span>
+            </span>
+            <span class="page-chip page-chip--d">2 / 2</span>
+          </button>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- 001_Life Service -->
+      <section class="sec">
+        <div class="sec-head">
+          <p class="sec-label">생활 서비스</p>
+          <h2 class="sec-title">생활의 귀차니즘, 덜어 줄게요</h2>
+        </div>
+        <div class="hscroll hscroll--cards">
+          <article class="svc-card">
+            <span class="svc-card__media"><img class="photo" src="assets/photos/svc-cleaning.jpg" alt="" decoding="async" /></span>
+            <div class="svc-card__body">
+              <h3>룸클리닝</h3>
+              <p>한달 1회 무료로 나만의 공간을<br />깨끗하게 관리하세요.</p>
+              <button class="btn-outline" data-action="reserve" data-name="룸클리닝">예약하기</button>
+            </div>
+          </article>
+          <article class="svc-card">
+            <span class="svc-card__media"><img class="photo" src="assets/photos/svc-furnishing.jpg" alt="" decoding="async" /></span>
+            <div class="svc-card__body">
+              <h3>홈퍼니싱</h3>
+              <p>에피소드에 꼭 맞는 가구를 사지 말고<br />렌탈하세요</p>
+              <button class="btn-outline" data-action="reserve" data-name="홈퍼니싱">예약하기</button>
+            </div>
+          </article>
+          <article class="svc-card">
+            <span class="svc-card__media svc-card__media--dim"><img class="photo" src="assets/photos/svc-washing.jpg" alt="" decoding="async" /><span class="svc-card__overlay">이불 빨래도 가능한 대형 세탁기와<br />건조기로 마음까지 뽀송하게!</span></span>
+            <div class="svc-card__body">
+              <h3>워싱</h3>
+              <div class="machines">
+                <p class="machines__label">세탁기</p>
+                <ul class="machines__dots" aria-label="세탁기 4대 중 1대 사용 중"><li></li><li class="is-busy"></li><li></li><li></li></ul>
+                <p class="machines__label">건조기</p>
+                <ul class="machines__dots" aria-label="건조기 4대 중 2대 사용 중"><li></li><li class="is-busy"></li><li></li><li class="is-busy"></li></ul>
+              </div>
+            </div>
+          </article>
+          <article class="svc-card">
+            <span class="svc-card__media"><img class="photo" src="assets/photos/svc-storage.jpg" alt="" decoding="async" /></span>
+            <div class="svc-card__body">
+              <h3>스토링</h3>
+              <p>부족한 수납공간 해결은 스토링에게<br />맡기세요</p>
+              <button class="btn-outline" data-action="reserve" data-name="스토링">예약하기</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 002 Facility -->
+      <section class="sec">
+        <div class="sec-head">
+          <p class="sec-label">시설 예약</p>
+          <h2 class="sec-title">엣피를 위한 다양한 시설을 예약하세요</h2>
+        </div>
+        <div class="hscroll hscroll--cards">
+          <article class="svc-card">
+            <span class="svc-card__media"><img class="photo" src="assets/photos/fac-works.jpg" alt="" decoding="async" /><span class="tag-label">강남 393</span></span>
+            <div class="svc-card__body">
+              <h3 class="en">WORKS</h3>
+              <p>30분 단위로 최대 3시간까지 예약 가능<br />합니다.</p>
+              <button class="btn-outline" data-action="reserve" data-name="WORKS">예약하기</button>
+            </div>
+          </article>
+          <article class="svc-card">
+            <span class="svc-card__media"><img class="photo" src="assets/photos/fac-training.jpg" alt="" decoding="async" /><span class="tag-label">강남 393</span></span>
+            <div class="svc-card__body">
+              <h3>트레이닝</h3>
+              <p>전문적인 기구와 함께 홈트레이닝을<br />시작하세요.</p>
+              <button class="btn-outline" data-action="reserve" data-name="트레이닝">예약하기</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 003_Community -->
+      <section class="sec">
+        <div class="sec-head">
+          <p class="sec-label">커뮤니티</p>
+          <h2 class="sec-title">엣피와 함께하는 커뮤니티에 참여하세요</h2>
+        </div>
+        <div class="hscroll hscroll--cards">
+          <article class="svc-card svc-card--tall">
+            <span class="svc-card__media"><img class="photo" src="assets/photos/com-tasting.jpg" alt="" decoding="async" /><span class="tag-label">성수 101</span><span class="svc-card__status" data-status>모집중 <span data-count="4" data-max="50">4/50</span></span></span>
+            <div class="svc-card__body">
+              <h3>전통주 시음회</h3>
+              <p class="event-info">12/09(금) 12:00<br />에피소드 구의 루프탑<br />10,000원</p>
+              <p class="event-tags">#주당 #먹고놀자 #퇴근후</p>
+              <button class="btn-outline" data-action="apply">신청하기</button>
+            </div>
+          </article>
+          <article class="svc-card svc-card--tall">
+            <span class="svc-card__media"><img class="photo" src="assets/photos/com-xmas.jpg" alt="" decoding="async" /><span class="tag-label">성수 101</span><span class="svc-card__status">신청완료 19/50</span></span>
+            <div class="svc-card__body">
+              <h3>크리스마스 파티</h3>
+              <p class="event-info">12/09(금) 12:00<br />에피소드 성수 루프탑<br />10,000원</p>
+              <p class="event-tags">#주당 #먹고놀자 #크리스마스</p>
+              <button class="btn-outline" disabled>신청완료</button>
+            </div>
+          </article>
+          <button class="more-card more-card--tall" data-action="out-of-scope" data-name="커뮤니티 목록">
+            <span class="more-card__circle"><i class="chev chev--lg"></i></span>더보기
+          </button>
+        </div>
+      </section>
+
+      <!-- 004_Benefit -->
+      <section class="sec sec--last">
+        <div class="sec-head sec-head--row">
+          <div>
+            <p class="sec-label">혜택</p>
+            <h2 class="sec-title">에피소드만의 편리한 혜택</h2>
+          </div>
+          <button class="link-btn" data-action="out-of-scope" data-name="혜택 이용 안내">이용 안내 <i class="chev"></i></button>
+        </div>
+        <ul class="benefits">
+          <li><img class="photo photo--round" src="assets/photos/ben-beam.jpg" alt="" decoding="async" /><div><h3>빔</h3><p>근거리 이동에 빼놓을 수 없는 마이크로 모빌리티. 에피소드 앞에서 편하게 빔으로 이용해보세요</p></div></li>
+          <li><img class="photo photo--round" src="assets/photos/ben-mobility.jpg" alt="" decoding="async" /><div><h3>모빌리</h3><p>에피소드 전용 셰어링카 전기차로 환경 부담까지 생각하는 공유차량을 이용해보세요.</p></div></li>
+          <li><img class="photo photo--round" src="assets/photos/ben-oho.jpg" alt="" decoding="async" /><div><h3>오호</h3><p>계절 지난 옷, 자주 쓰지 않는 물건이 집안 가득 쌓여 있을 때는 오호를 이용해보세요.</p></div></li>
+        </ul>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <button class="qr-btn" data-action="qr" aria-label="출입 QR">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10" /></svg>
+    </button>
+    <nav class="tabbar" aria-label="하단 메뉴">
+      <button class="tab is-active" aria-current="page">
+        <svg width="24" height="24" viewBox="0 0 24 24"><path d="M4 10.5 12 4l8 6.5V20h-5.5v-5h-5v5H4v-9.5Z" fill="currentColor" /></svg>홈
+      </button>
+      <button class="tab" data-action="out-of-scope" data-name="엣피버스">
+        <svg width="24" height="24" viewBox="0 0 24 24"><path d="M12 5c4.4 0 8 2.7 8 6s-3.6 6-8 6c-.9 0-1.8-.1-2.6-.3L5.5 18.5l1-3.3C5 14 4 12.6 4 11c0-3.3 3.6-6 8-6Z" fill="currentColor" /></svg>엣피버스
+      </button>
+      <button class="tab" data-action="out-of-scope" data-name="마이">
+        <svg width="24" height="24" viewBox="0 0 24 24"><circle cx="5.5" cy="12" r="1.8" fill="currentColor" /><circle cx="12" cy="12" r="1.8" fill="currentColor" /><circle cx="18.5" cy="12" r="1.8" fill="currentColor" /></svg>마이
+      </button>
+    </nav>
+
+    <!-- Bottom sheets -->
+    <div class="sheet-backdrop" id="sheet-backdrop" hidden></div>
+
+    <section class="sheet" id="sheet-residence" role="dialog" aria-modal="true" aria-labelledby="sheet-residence-title" hidden>
+      <span class="sheet__grip"></span>
+      <h2 class="sheet__title" id="sheet-residence-title">거주 중인 에피소드</h2>
+      <ul class="option-list" data-group="residence">
+        <li><button class="is-selected" data-value="EPISODE SINCHON 369, 1501호">EPISODE SINCHON 369, 1501호</button></li>
+        <li><button data-value="EPISODE SEONGSU 101, 504호">EPISODE SEONGSU 101, 504호</button></li>
+        <li><button data-value="EPISODE GUUI 389, 302호">EPISODE GUUI 389, 302호</button></li>
+      </ul>
+      <p class="sheet__note">데모 데이터입니다. 선택하면 홈 화면의 표시만 바뀌어요.</p>
+    </section>
+
+    <section class="sheet" id="sheet-reserve" role="dialog" aria-modal="true" aria-labelledby="sheet-reserve-title" hidden>
+      <span class="sheet__grip"></span>
+      <h2 class="sheet__title" id="sheet-reserve-title"><span data-reserve-name>룸클리닝</span> 예약</h2>
+      <p class="sheet__label">날짜</p>
+      <div class="chips" data-group="date">
+        <button class="is-selected">12/14(수)</button>
+        <button>12/15(목)</button>
+        <button>12/16(금)</button>
+      </div>
+      <p class="sheet__label">시간</p>
+      <div class="chips" data-group="time">
+        <button>10:00</button>
+        <button class="is-selected">14:00</button>
+        <button>16:00</button>
+        <button disabled>18:00</button>
+      </div>
+      <button class="btn-black" data-action="confirm-reserve">예약하기</button>
+      <p class="sheet__note">데모 화면이에요. 실제 예약은 진행되지 않아요.</p>
+    </section>
+
+    <section class="sheet" id="sheet-qr" role="dialog" aria-modal="true" aria-labelledby="sheet-qr-title" hidden>
+      <span class="sheet__grip"></span>
+      <h2 class="sheet__title" id="sheet-qr-title">출입 QR</h2>
+      <div class="qr-demo" aria-hidden="true"></div>
+      <p class="qr-timer"><span id="qr-timer">00:30</span> 후 새로고침</p>
+      <p class="sheet__note">시연용 이미지예요. 실제 출입에 사용할 수 없어요.</p>
+    </section>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </div>
+
+  <script src="app.js?v=3"></script>
+</body>
+</html>

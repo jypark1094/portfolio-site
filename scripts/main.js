@@ -132,10 +132,54 @@ const DEFAULT_DESCRIPTION = "프로젝트 설명이 들어갈 자리입니다.";
 let currentMedia = [];
 let currentMockupSource = null;
 
+// A media entry of the form "prototype:<url>" embeds an interactive app
+// prototype inside a phone frame instead of showing a still image.
+const PROTOTYPE_PREFIX = "prototype:";
+const PHONE_WIDTH = 380;
+const PHONE_HEIGHT = 760;
+
+function isPrototype(src) {
+  return src.startsWith(PROTOTYPE_PREFIX);
+}
+
+function fitPrototype() {
+  const box = modalMediaMockupSlot.querySelector(".proto-box");
+  // The modal may still be hidden (zero size) right after rendering.
+  if (!box || modalMediaMockupSlot.clientHeight === 0) return;
+  const scale = Math.min(
+    1,
+    (modalMediaMockupSlot.clientWidth - 32) / PHONE_WIDTH,
+    (modalMediaMockupSlot.clientHeight - 64) / PHONE_HEIGHT
+  );
+  box.style.width = `${PHONE_WIDTH * scale}px`;
+  box.style.height = `${PHONE_HEIGHT * scale}px`;
+  box.firstElementChild.style.transform = `scale(${scale})`;
+}
+
+window.addEventListener("resize", fitPrototype);
+
+function showPrototype(src) {
+  modalMediaFrame.style.display = "none";
+  modalMediaMockupSlot.style.display = "flex";
+  modalMediaMockupSlot.innerHTML = `
+    <div class="proto-stage">
+      <div class="proto-box">
+        <div class="proto-phone">
+          <iframe class="proto-screen" title="Episode 앱 인터랙티브 프로토타입"></iframe>
+        </div>
+      </div>
+      <p class="proto-caption">Interactive prototype · 데모 데이터 — 화면을 스크롤하고 카드를 좌우로 넘겨 보세요</p>
+    </div>`;
+  modalMediaMockupSlot.querySelector(".proto-screen").src = src.slice(PROTOTYPE_PREFIX.length);
+  requestAnimationFrame(fitPrototype);
+}
+
 function showMedia(mediaIndex) {
   const src = currentMedia[mediaIndex];
 
-  if (src === "mockup" && currentMockupSource) {
+  if (isPrototype(src)) {
+    showPrototype(src);
+  } else if (src === "mockup" && currentMockupSource) {
     modalMediaFrame.style.display = "none";
     modalMediaMockupSlot.style.display = "flex";
     modalMediaMockupSlot.innerHTML = "";
@@ -184,7 +228,10 @@ function renderGallery(card) {
   media.forEach((src, i) => {
     const thumb = document.createElement("div");
     thumb.className = "wm-thumb" + (i === 0 ? " is-active" : "");
-    if (src === "mockup" && currentMockupSource) {
+    if (isPrototype(src)) {
+      thumb.classList.add("wm-thumb--prototype");
+      thumb.title = "Interactive prototype";
+    } else if (src === "mockup" && currentMockupSource) {
       thumb.classList.add("wm-thumb--mockup");
       const stage = document.createElement("div");
       stage.className = "phone-mockup-stage";
@@ -271,6 +318,8 @@ function openModal(index) {
 }
 
 function closeModal() {
+  // Drop any embedded prototype so it stops running in the background.
+  modalMediaMockupSlot.innerHTML = "";
   modal.classList.remove("is-open");
   modal.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";

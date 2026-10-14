@@ -621,6 +621,69 @@ a {
   pointer-events: none;
 }
 
+/* Interactive app prototype (iframe in a phone frame). The phone is laid
+   out at its natural size and scaled to fit the slot by main.js. */
+.proto-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #f6eefb 0%, #ddd2f7 55%, #b9a6ef 100%);
+}
+
+.proto-box {
+  flex-shrink: 0;
+}
+
+.proto-phone {
+  width: 380px;
+  height: 760px;
+  padding: 10px;
+  border-radius: 52px;
+  background: #111114;
+  box-shadow: 0 24px 60px rgba(40, 20, 90, 0.25), inset 0 0 0 2px #2b2b30;
+  transform-origin: top left;
+}
+
+.proto-screen {
+  display: block;
+  width: 360px;
+  height: 740px;
+  border: 0;
+  border-radius: 42px;
+  background: #f5f5f5;
+}
+
+.proto-caption {
+  margin: 0;
+  padding: 0 16px;
+  font-size: 12px;
+  color: #5b4f7a;
+  text-align: center;
+}
+
+.wm-thumb--prototype {
+  position: relative;
+  background: linear-gradient(135deg, #f6eefb, #b9a6ef);
+}
+
+.wm-thumb--prototype::before {
+  content: "";
+  position: absolute;
+  top: 18%;
+  left: 50%;
+  width: 34%;
+  height: 64%;
+  border: 2px solid #111114;
+  border-radius: 4px;
+  background: #fff;
+  transform: translateX(-50%);
+}
+
 .wm-media-frame {
   height: 670px;
   width: 1040px;

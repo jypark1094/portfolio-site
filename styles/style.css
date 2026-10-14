@@ -288,6 +288,259 @@ a {
   background-position: top center;
 }
 
+/* Episode logo motion (Figma "Section 1" storyboard: ep → bar → block → dot).
+   The stage reproduces the 2000×1500 thumbnail with "cover" fit; every
+   piece is positioned in that image's own coordinates, so the resting
+   frame matches episode-thumb.webp exactly. */
+.work-card--episode {
+  background: #ffffff;
+  container-type: size;
+}
+
+.ep-motion {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.ep-motion__stage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100cqw, 100cqh * 4 / 3);
+  height: max(100cqh, 100cqw * 3 / 4);
+  transform: translate(-50%, -50%);
+}
+
+.ep-motion__glyph,
+.ep-motion__block,
+.ep-motion__dot {
+  position: absolute;
+}
+
+/* "e" and "p" — each cropped from the original thumbnail. */
+.ep-motion__glyph {
+  top: 45.267%;
+  background-image: url("../assets/episode-thumb.webp");
+  background-repeat: no-repeat;
+  transform-origin: center bottom;
+}
+
+/* e — x 643–765, y 679–811. */
+.ep-motion__glyph--e {
+  left: 32.15%;
+  width: 6.15%;
+  height: 8.867%;
+  background-position: 34.257% 49.671%;
+  background-size: 1626.016% 1127.82%;
+}
+
+/* p — x 782–907, y 679–856. */
+.ep-motion__glyph--p {
+  left: 39.1%;
+  width: 6.3%;
+  height: 11.867%;
+  background-position: 41.729% 51.362%;
+  background-size: 1587.302% 842.697%;
+}
+
+/* Block — x 930–1301, y 684–810. */
+.ep-motion__block {
+  left: 46.5%;
+  top: 45.6%;
+  width: 18.6%;
+  height: 8.467%;
+  background: #000009;
+  transform-origin: left bottom;
+}
+
+/* Dot — x 1320–1345, y 785–811. */
+.ep-motion__dot {
+  left: 66%;
+  top: 52.333%;
+  width: 1.3%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #000009;
+  transform-origin: center bottom;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ep-motion__glyph--e {
+    animation: ep-drop-e 6s infinite;
+  }
+
+  .ep-motion__glyph--p {
+    animation: ep-drop-p 6s infinite;
+  }
+
+  .ep-motion__block {
+    animation: ep-block 6s infinite;
+  }
+
+  .ep-motion__dot {
+    animation: ep-dot 6s infinite;
+  }
+}
+
+/* 6s loop: "e" then "p" drop in and bounce (0–1s), a dot drops at the
+   block's left edge, turns into a thin bar that shoots up, the bar snaps
+   open into the block, then a new dot pops out of the block's end and
+   bounces into place. Everything holds, fades, and starts again. */
+@keyframes ep-drop-e {
+  0% {
+    transform: translateY(-260%);
+    opacity: 0;
+    animation-timing-function: ease-in;
+  }
+  2% {
+    opacity: 1;
+    animation-timing-function: ease-in;
+  }
+  7.5% {
+    transform: translateY(0) scale(1.15, 0.85);
+    animation-timing-function: ease-out;
+  }
+  10% {
+    transform: translateY(-12%) scale(0.97, 1.03);
+    animation-timing-function: ease-in;
+  }
+  12.5%,
+  90% {
+    transform: translateY(0) scale(1, 1);
+    opacity: 1;
+  }
+  96.67%,
+  100% {
+    transform: translateY(0) scale(1, 1);
+    opacity: 0;
+  }
+}
+
+@keyframes ep-drop-p {
+  0%,
+  5% {
+    transform: translateY(-260%);
+    opacity: 0;
+    animation-timing-function: ease-in;
+  }
+  6.5% {
+    opacity: 1;
+    animation-timing-function: ease-in;
+  }
+  12.5% {
+    transform: translateY(0) scale(1.15, 0.85);
+    animation-timing-function: ease-out;
+  }
+  15% {
+    transform: translateY(-12%) scale(0.97, 1.03);
+    animation-timing-function: ease-in;
+  }
+  17.5%,
+  90% {
+    transform: translateY(0) scale(1, 1);
+    opacity: 1;
+  }
+  96.67%,
+  100% {
+    transform: translateY(0) scale(1, 1);
+    opacity: 0;
+  }
+}
+
+@keyframes ep-block {
+  0%,
+  32.5% {
+    transform: scale(0.05, 0);
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.2, 0.9, 0.3, 1.3);
+  }
+  39.17% {
+    transform: scale(0.05, 1);
+    animation-timing-function: ease-in-out;
+  }
+  42.5% {
+    transform: scale(0.05, 1);
+    animation-timing-function: cubic-bezier(0.7, 0, 0.2, 1);
+  }
+  50.83% {
+    transform: scale(1.05, 1);
+    animation-timing-function: ease-out;
+  }
+  54.17%,
+  90% {
+    transform: scale(1, 1);
+    opacity: 1;
+    animation-timing-function: ease-in;
+  }
+  96.67%,
+  100% {
+    transform: scale(1, 1);
+    opacity: 0;
+  }
+}
+
+@keyframes ep-dot {
+  0%,
+  16.67% {
+    transform: translate(-1500%, -700%);
+    opacity: 0;
+    animation-timing-function: ease-in;
+  }
+  20% {
+    opacity: 1;
+    animation-timing-function: ease-in;
+  }
+  27.5% {
+    transform: translate(-1500%, 0) scale(1.4, 0.6);
+    animation-timing-function: ease-out;
+  }
+  30% {
+    transform: translate(-1500%, -70%) scale(0.9, 1.1);
+    animation-timing-function: ease-in;
+  }
+  32.5% {
+    transform: translate(-1500%, 0) scale(1, 1);
+    opacity: 1;
+  }
+  32.92% {
+    transform: translate(-1500%, 0) scale(1, 1);
+    opacity: 0;
+  }
+  33.33%,
+  54.17% {
+    transform: translate(-173%, 0) scale(1, 1);
+    opacity: 0;
+    animation-timing-function: ease-out;
+  }
+  55% {
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+  59.17% {
+    transform: translate(-70%, -320%) scale(0.95, 1.05);
+    animation-timing-function: ease-in;
+  }
+  63.33% {
+    transform: translate(0, 0) scale(1.35, 0.65);
+    animation-timing-function: ease-out;
+  }
+  65.83% {
+    transform: translate(0, -45%) scale(0.95, 1.05);
+    animation-timing-function: ease-in;
+  }
+  68.33%,
+  90% {
+    transform: translate(0, 0) scale(1, 1);
+    opacity: 1;
+  }
+  96.67%,
+  100% {
+    transform: translate(0, 0) scale(1, 1);
+    opacity: 0;
+  }
+}
+
 /* The logo must never move: lock the outer card's transform in every
    state (base/entrance, hover, revealed), overriding the shared
    .work-card rules above. Only the ::before background and the dim

@@ -1,22 +1,44 @@
 const sections = document.querySelectorAll("main section[id]");
 const navLinks = document.querySelectorAll(".nav a");
 
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      navLinks.forEach((link) => {
-        link.classList.toggle(
-          "is-active",
-          link.getAttribute("href") === `#${entry.target.id}`
-        );
-      });
+// The active section is the last one whose top has passed 30% of the
+// viewport. The last section (Contact) is too short to ever reach that
+// line, so it also becomes active once the page is scrolled to the bottom.
+function updateActiveNav() {
+  const atBottom =
+    window.innerHeight + window.scrollY >=
+    document.documentElement.scrollHeight - 2;
+  let current = sections[0];
+
+  sections.forEach((section) => {
+    if (section.getBoundingClientRect().top <= window.innerHeight * 0.3) {
+      current = section;
+    }
+  });
+  if (atBottom) current = sections[sections.length - 1];
+
+  navLinks.forEach((link) => {
+    link.classList.toggle(
+      "is-active",
+      link.getAttribute("href") === `#${current.id}`
+    );
+  });
+}
+
+let navTicking = false;
+window.addEventListener(
+  "scroll",
+  () => {
+    if (navTicking) return;
+    navTicking = true;
+    requestAnimationFrame(() => {
+      updateActiveNav();
+      navTicking = false;
     });
   },
-  { rootMargin: "-20% 0px -70% 0px" }
+  { passive: true }
 );
-
-sections.forEach((section) => observer.observe(section));
+updateActiveNav();
 
 const filterButtons = document.querySelectorAll(".filter");
 const workCards = document.querySelectorAll(".work-card");

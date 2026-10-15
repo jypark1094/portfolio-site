@@ -1248,6 +1248,11 @@ a {
   color: var(--color-muted);
 }
 
+/* Line breaks written into a card's data-description (&#10;) are kept. */
+.project-description {
+  white-space: pre-line;
+}
+
 .wm-info-link {
   font-size: 14px;
   text-decoration: underline;

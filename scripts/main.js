@@ -142,6 +142,15 @@ function isPrototype(src) {
   return src.startsWith(PROTOTYPE_PREFIX);
 }
 
+// A media entry "scene" shows the card's <template class="work-card__scene">
+// (an animated HTML/CSS scene) in the modal; its thumbnail is a still copy.
+const SCENE_MEDIA = "scene";
+let currentSceneTemplate = null;
+
+function isScene(src) {
+  return src === SCENE_MEDIA;
+}
+
 function fitPrototype() {
   const box = modalMediaMockupSlot.querySelector(".proto-box");
   // The modal may still be hidden (zero size) right after rendering.
@@ -179,6 +188,11 @@ function showMedia(mediaIndex) {
 
   if (isPrototype(src)) {
     showPrototype(src);
+  } else if (isScene(src) && currentSceneTemplate) {
+    modalMediaFrame.style.display = "none";
+    modalMediaMockupSlot.style.display = "flex";
+    modalMediaMockupSlot.innerHTML = "";
+    modalMediaMockupSlot.appendChild(currentSceneTemplate.content.cloneNode(true));
   } else if (src === "mockup" && currentMockupSource) {
     modalMediaFrame.style.display = "none";
     modalMediaMockupSlot.style.display = "flex";
@@ -209,6 +223,7 @@ function renderGallery(card) {
   }
   currentMedia = media;
   currentMockupSource = card.querySelector(".phone-mockup");
+  currentSceneTemplate = card.querySelector("template.work-card__scene");
   modalThumbs.innerHTML = "";
 
   if (media.length === 0) {
@@ -231,6 +246,9 @@ function renderGallery(card) {
     if (isPrototype(src)) {
       thumb.classList.add("wm-thumb--prototype");
       thumb.title = "Interactive prototype";
+    } else if (isScene(src) && currentSceneTemplate) {
+      thumb.classList.add("wm-thumb--scene");
+      thumb.appendChild(currentSceneTemplate.content.cloneNode(true));
     } else if (src === "mockup" && currentMockupSource) {
       thumb.classList.add("wm-thumb--mockup");
       const stage = document.createElement("div");

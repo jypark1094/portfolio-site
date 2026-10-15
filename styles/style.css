@@ -777,9 +777,8 @@ a {
   cursor: default;
 }
 
-/* Healthi Buddy: thumbnail only for now (still a placeholder, so no detail
-   popup). The whole logo image stays visible and its flat orange backdrop
-   (sampled from the image edges) extends into the rest of the card. */
+/* Healthi Buddy: the whole logo image stays visible and its flat orange
+   backdrop (sampled from the image edges) extends into the rest of the card. */
 .work-card.work-card--healthi-thumb {
   background: #ff9e44 url("../assets/healthi-buddy-thumb.webp") center / contain no-repeat;
   border: 0;
@@ -931,6 +930,142 @@ a {
 
 .wm-thumb .phone-mockup-stage {
   pointer-events: none;
+}
+
+/* Healthi Buddy detail scene (Figma "Slide 16:9 - 1", 1920×1080): two long
+   app screens scroll like a user swiping, one after the other, inside
+   360×924 rounded frames (slide y 100–1024) with a 4px outside stroke.
+   --u is one slide pixel. */
+.hb-scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  /* The slide's Figma linear gradient (stops 0 / 51.44 / 100%) converted
+     from its gradientTransform to a CSS angle. */
+  background: linear-gradient(119.37deg, #ffebd8 0%, #e8fffb 51.44%, #d2cdff 100%);
+  container-type: size;
+}
+
+/* The gallery thumbnail is a still, scaled-down copy of the scene. */
+.wm-thumb--scene .hb-scene {
+  border-radius: 0;
+}
+
+.wm-thumb--scene .hb-shot {
+  animation: none;
+}
+
+.hb-canvas {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  /* Fill the slot's height, but never let the centre band that holds the
+     phones (slide x 420–1500, 1080px wide) get wider than the slot; the
+     plain gradient at the slide's far left/right may be cropped. */
+  width: min(100cqh * 16 / 9, 100cqw * 1920 / 1080);
+  aspect-ratio: 16 / 9;
+  transform: translate(-50%, -50%);
+  container-type: size;
+}
+
+.hb-window {
+  --u: calc(100cqw / 1920);
+  position: absolute;
+  top: calc(var(--u) * 96);
+  width: calc(var(--u) * 368);
+  height: calc(var(--u) * 932);
+  overflow: hidden;
+  border: calc(var(--u) * 4) solid #2f2f2f;
+  border-radius: calc(var(--u) * 24);
+}
+
+.hb-window--left {
+  left: calc(var(--u) * 516);
+  background-color: #ff9e44;
+}
+
+.hb-window--right {
+  left: calc(var(--u) * 1036);
+  background-color: #8071fc;
+}
+
+.hb-shot {
+  display: block;
+  width: 100%;
+  height: auto;
+  animation: 14s infinite;
+}
+
+/* One 14s cycle: left scrolls down slowly, flicks back up past the top and
+   settles like a damped spring (overshoot ~14 slide px, a quarter of that
+   back the other way, then rest), then the right does the same. The
+   down-scroll eases in gently and decelerates over a long tail, like a
+   finger drag letting go. Scroll distance is (screen height − 924 visible
+   px) ÷ screen height: left 1629 → 43.28%, right 1334 → 30.73%. */
+.hb-window--left .hb-shot {
+  animation-name: hb-scroll-left;
+}
+
+.hb-window--right .hb-shot {
+  animation-name: hb-scroll-right;
+}
+
+@keyframes hb-scroll-left {
+  0%,
+  5.71% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.37, 0, 0.2, 1);
+  }
+  41.43%,
+  45.71% {
+    transform: translateY(-43.28%);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.2, 1);
+  }
+  48.57% {
+    transform: translateY(0.86%);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  }
+  50.71% {
+    transform: translateY(-0.22%);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  }
+  52.86%,
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes hb-scroll-right {
+  0%,
+  57.14% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.37, 0, 0.2, 1);
+  }
+  78.57%,
+  82.86% {
+    transform: translateY(-30.73%);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.2, 1);
+  }
+  85.71% {
+    transform: translateY(1.05%);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  }
+  87.86% {
+    transform: translateY(-0.27%);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  }
+  90%,
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hb-shot {
+    animation: none;
+  }
 }
 
 /* Interactive app prototype (iframe in a phone frame). The phone is laid

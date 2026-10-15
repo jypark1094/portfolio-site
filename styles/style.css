@@ -777,6 +777,14 @@ a {
   cursor: default;
 }
 
+/* Healthi Buddy: thumbnail only for now (still a placeholder, so no detail
+   popup). The whole logo image stays visible and its flat orange backdrop
+   (sampled from the image edges) extends into the rest of the card. */
+.work-card.work-card--healthi-thumb {
+  background: #ff9e44 url("../assets/healthi-buddy-thumb.webp") center / contain no-repeat;
+  border: 0;
+}
+
 .contact {
   max-width: var(--max-width);
   margin: 0 auto;

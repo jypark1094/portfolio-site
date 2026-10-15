@@ -288,6 +288,14 @@ a {
   background-position: top center;
 }
 
+/* ESGNX: show the whole thumbnail and extend its flat backdrop colour
+   (sampled from the image edges) into whatever space is left over. */
+.work-card--esgnx-thumb {
+  background-color: #95c4af;
+  background-size: contain;
+  background-position: center;
+}
+
 /* Episode logo motion (Figma "Section 1" storyboard: ep → bar → block → dot).
    The stage reproduces the 2000×1500 thumbnail with "cover" fit; every
    piece is positioned in that image's own coordinates, so the resting

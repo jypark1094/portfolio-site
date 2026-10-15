@@ -588,6 +588,49 @@ a {
   background: #ffffff;
 }
 
+/* List-only thumbnail. The card's .phone-mockup stays in the DOM (hidden)
+   because the detail modal clones it for its "mockup" slide. */
+.work-card__thumb {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.work-card > .phone-mockup:has(~ .work-card__thumb) {
+  display: none;
+}
+
+/* Golf Team: the thumbnail is shrunk into the card and the card carries the
+   image's own backdrop gradient (sampled from its corners), so the backdrop
+   reads as one continuous surface and no phone gets cropped. */
+.work-card--golf-thumb {
+  background: linear-gradient(135deg, #dde9fc 0%, #e3f2e8 100%);
+  container-type: size;
+  /* The card sits on a fractional x (column width / gap). Keeping it on its
+     own compositor layer at all times stops the browser from re-snapping
+     the image to whole pixels when the hover scale ends (a visible jump). */
+  will-change: transform;
+}
+
+/* Centered with margin:auto (not translate(-50%)) and sized to whole even
+   pixels, so it never sits on a half pixel: otherwise the browser re-snaps
+   it when the card's hover scale transition ends and the image jumps. */
+.work-card--golf-thumb .work-card__thumb {
+  inset: 0;
+  margin: auto;
+  width: round(down, min(92cqw, 92cqh * 2000 / 1324), 2px);
+  height: round(down, min(92cqh, 92cqw * 1324 / 2000), 2px);
+  object-fit: contain;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent),
+    linear-gradient(to bottom, transparent, #000 3%, #000 97%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent),
+    linear-gradient(to bottom, transparent, #000 3%, #000 97%, transparent);
+  mask-composite: intersect;
+}
+
 .phone-mockup {
   position: absolute;
   left: 50%;

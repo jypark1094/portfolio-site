@@ -307,6 +307,18 @@ a {
   background-position: top center;
 }
 
+/* Salarying: the whole page mockup stays visible (contain). Its page runs
+   off the image's bottom edge, so the image sits on the card's bottom and
+   the leftover space above takes the image's flat grey backdrop (#efefef,
+   sampled from its edges). Kept on a compositor layer so the image isn't
+   re-snapped on hover end. */
+.work-card--salarying-thumb {
+  background-color: #efefef;
+  background-size: contain;
+  background-position: center bottom;
+  will-change: transform;
+}
+
 /* ESGNX: show the whole thumbnail and extend its flat backdrop colour
    (sampled from the image edges) into whatever space is left over. */
 .work-card--esgnx-thumb {

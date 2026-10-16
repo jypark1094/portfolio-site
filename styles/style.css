@@ -282,6 +282,14 @@ a {
   background-position: center;
 }
 
+/* Woori Bank UMS: whole laptop mockup visible; the card colour matches the
+   image's flat dark backdrop (sampled from its edges) so the leftover
+   space blends in. Kept on a compositor layer to avoid the hover-end jump. */
+.work-card--woori-thumb {
+  background-color: #27292d;
+  will-change: transform;
+}
+
 .work-card--fill {
   background-size: cover;
   background-repeat: no-repeat;
@@ -294,6 +302,9 @@ a {
   background-color: #95c4af;
   background-size: contain;
   background-position: center;
+  /* Stay on a compositor layer so the image isn't re-snapped to whole
+     pixels (a visible jump) when the hover scale ends; see golf-thumb. */
+  will-change: transform;
 }
 
 /* Episode logo motion (Figma "Section 1" storyboard: ep → bar → block → dot).
@@ -549,14 +560,20 @@ a {
   }
 }
 
-/* The logo must never move: lock the outer card's transform in every
-   state (base/entrance, hover, revealed), overriding the shared
-   .work-card rules above. Only the ::before background and the dim
-   overlay are allowed to animate. */
+/* The logo must not drift on its own: lock the outer card's transform in
+   its base/entrance and revealed states, overriding the shared .work-card
+   rules above. Only the ::before background and the dim overlay animate
+   by themselves; on hover the whole card scales like every other card. */
 .work-card--drift,
-.work-card--drift.is-revealed,
-.work-card--drift:hover {
+.work-card--drift.is-revealed {
   transform: none;
+  /* Stay on a compositor layer so the logo isn't re-snapped to whole
+     pixels (a visible jump) when the hover scale ends. */
+  will-change: transform;
+}
+
+.work-card--drift:hover {
+  transform: scale(1.03);
 }
 
 .work-card--drift::before {
@@ -782,6 +799,8 @@ a {
 .work-card.work-card--healthi-thumb {
   background: #ff9e44 url("../assets/healthi-buddy-thumb.webp") center / contain no-repeat;
   border: 0;
+  /* Same hover-end jump fix as the ESGNX / Golf Team thumbnails. */
+  will-change: transform;
 }
 
 .contact {

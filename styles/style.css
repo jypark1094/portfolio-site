@@ -1,8 +1,8 @@
 :root {
-  --color-bg: #fafafa;
-  --color-text: #111111;
-  --color-muted: #8a8a8a;
-  --color-border: #e2e2e2;
+  --color-bg: #13161f;
+  --color-text: #f2f3f5;
+  --color-muted: #8b909c;
+  --color-border: #2a2e39;
   --font-base: "Pretendard", "Helvetica Neue", Arial, sans-serif;
   --gap: 24px;
   --section-gap: 160px;
@@ -73,7 +73,7 @@ a {
 }
 
 .nav a.is-active {
-  background: #e8e8e8;
+  background: #262a36;
   color: var(--color-text);
   font-size: 16px;
 }
@@ -98,7 +98,7 @@ a {
 
 .icon-link:hover {
   color: var(--color-text);
-  background: #ececec;
+  background: #262a36;
 }
 
 .icon {
@@ -225,10 +225,13 @@ a {
   display: none;
 }
 
+/* Three equal columns of cards; each column mixes one tall
+   card with short ones at a different position, so the grid staggers. */
 .work-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--gap);
+  align-items: flex-start;
+  gap: 22px;
   padding-bottom: var(--section-gap);
 }
 
@@ -237,7 +240,15 @@ a {
   flex: 1 1 0;
   min-width: 0;
   flex-direction: column;
-  gap: var(--gap);
+  gap: 22px;
+}
+
+.work-card--tall {
+  aspect-ratio: 422 / 580;
+}
+
+.work-card--short {
+  aspect-ratio: 422 / 366;
 }
 
 .work-card {
@@ -766,13 +777,15 @@ a {
   }
 }
 
+/* Hover dim with the project title in the card's bottom-left corner. */
 .work-card__dim {
   position: absolute;
   inset: 0;
   z-index: 2;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 24px;
   background-color: rgba(17, 17, 17, 0);
   opacity: 0;
   transition: background-color 0.2s ease, opacity 0.2s ease;
@@ -782,13 +795,21 @@ a {
   color: #fff;
   font-size: 16px;
   font-weight: 600;
-  text-align: center;
-  padding: 0 20px;
+  text-align: left;
 }
 
 .work-card:hover .work-card__dim {
   background-color: rgba(17, 17, 17, 0.55);
   opacity: 1;
+}
+
+/* No hover on touch screens: keep every title visible over a soft bottom
+   shade instead of the full dim. */
+@media (hover: none) {
+  .work-card__dim {
+    opacity: 1;
+    background: linear-gradient(to top, rgba(17, 17, 17, 0.55), rgba(17, 17, 17, 0) 55%);
+  }
 }
 
 .placeholder {
@@ -817,7 +838,8 @@ a {
 /* Healthi Buddy: the whole logo image stays visible and its flat orange
    backdrop (sampled from the image edges) extends into the rest of the card. */
 .work-card.work-card--healthi-thumb {
-  background: #ff9e44 url("../assets/healthi-buddy-thumb.webp") center / contain no-repeat;
+  /* 88% of the card width keeps clear orange space around the centred logo. */
+  background: #ff9e44 url("../assets/healthi-buddy-thumb.webp") center / 88% auto no-repeat;
   border: 0;
   /* Same hover-end jump fix as the ESGNX / Golf Team thumbnails. */
   will-change: transform;
@@ -879,11 +901,17 @@ a {
 }
 
 .work-modal {
+  /* The detail modal stays light on top of the dark page. */
+  --color-bg: #fafafa;
+  --color-text: #111111;
+  --color-muted: #8a8a8a;
+  --color-border: #e2e2e2;
   display: none;
   position: fixed;
   inset: 0;
   z-index: 100;
   background: #fff;
+  color: var(--color-text);
 }
 
 .work-modal.is-open {
@@ -1348,12 +1376,6 @@ a {
 .wm-arrow:hover,
 .wm-close:hover {
   background: #e4e4e4;
-}
-
-@media (max-width: 1024px) {
-  .work-col {
-    flex-basis: calc(50% - var(--gap) / 2);
-  }
 }
 
 @media (max-width: 900px) {

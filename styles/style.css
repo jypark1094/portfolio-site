@@ -282,12 +282,23 @@ a {
   background-position: center;
 }
 
-/* Woori Bank UMS: whole laptop mockup visible; the card colour matches the
-   image's flat dark backdrop (sampled from its edges) so the leftover
-   space blends in. Kept on a compositor layer to avoid the hover-end jump. */
+/* Woori Bank UMS: the laptop only spans x 18–82% / y 26–76% of the image,
+   so the image is scaled up until the laptop fills ~90% of the card's
+   width or height (whichever runs out first) and the empty backdrop around
+   it is cropped. The card colour matches that flat dark backdrop (sampled
+   from the image edges). Kept on a compositor layer to avoid the hover-end
+   jump. */
 .work-card--woori-thumb {
   background-color: #27292d;
+  container-type: size;
   will-change: transform;
+}
+
+.work-card--woori-thumb::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("../assets/woori-ums-thumb.webp") 50% 51% / min(141cqw, 243cqh) auto no-repeat;
 }
 
 .work-card--fill {

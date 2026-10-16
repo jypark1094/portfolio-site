@@ -289,7 +289,7 @@ a {
    from the image edges). Kept on a compositor layer to avoid the hover-end
    jump. */
 .work-card--woori-thumb {
-  background-color: #27292d;
+  background-color: #262833;
   container-type: size;
   will-change: transform;
 }
@@ -1471,9 +1471,26 @@ a {
     padding-top: 40px;
   }
 
-  .work-col {
-    flex-basis: 100%;
+  /* One column: lift the cards out of their columns and restore the
+     newest-first reading order (row by row across the three columns). */
+  .work-grid {
+    flex-direction: column;
+    align-items: stretch;
   }
+
+  .work-col {
+    display: contents;
+  }
+
+  .work-col:nth-child(1) > .work-card:nth-child(1) { order: 1; }
+  .work-col:nth-child(2) > .work-card:nth-child(1) { order: 2; }
+  .work-col:nth-child(3) > .work-card:nth-child(1) { order: 3; }
+  .work-col:nth-child(1) > .work-card:nth-child(2) { order: 4; }
+  .work-col:nth-child(2) > .work-card:nth-child(2) { order: 5; }
+  .work-col:nth-child(3) > .work-card:nth-child(2) { order: 6; }
+  .work-col:nth-child(1) > .work-card:nth-child(3) { order: 7; }
+  .work-col:nth-child(2) > .work-card:nth-child(3) { order: 8; }
+  .work-col:nth-child(3) > .work-card:nth-child(3) { order: 9; }
 }
 
 @media (max-width: 360px) {

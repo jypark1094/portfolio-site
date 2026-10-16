@@ -60,7 +60,8 @@ function restoreOriginalLayout() {
 }
 
 function reflowFilteredLayout(target) {
-  const allCardsInOrder = originalColumnCards.flat();
+  // cardList is the newest-first, row-by-row order (defined below).
+  const allCardsInOrder = cardList;
   let nextColumn = 0;
 
   allCardsInOrder.forEach((card) => {
@@ -115,7 +116,14 @@ filterButtons.forEach((button) => {
 });
 
 const CATEGORY_LABELS = { web: "Web", app: "App" };
-const cardList = Array.from(workCards);
+// Projects read left-to-right, then down (newest first), so the modal's
+// prev/next order interleaves the columns row by row.
+const cardList = columnEls.length
+  ? Array.from(
+      { length: Math.max(...originalColumnCards.map((col) => col.length)) },
+      (_, row) => originalColumnCards.map((col) => col[row]).filter(Boolean)
+    ).flat()
+  : Array.from(workCards);
 const modal = document.getElementById("work-modal");
 const modalTitle = modal.querySelector(".wm-info-title");
 const modalYear = modal.querySelector(".wm-info-year");

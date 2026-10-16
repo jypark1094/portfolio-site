@@ -835,11 +835,11 @@ a {
   will-change: transform;
 }
 
-/* Healthi Buddy: the whole logo image stays visible and its flat orange
-   backdrop (sampled from the image edges) extends into the rest of the card. */
+/* Healthi Buddy: the image (1774×1536) already matches the short card's
+   422:366 ratio, so cover fills it with practically no crop. #ffd6b0 is
+   the image's peach backdrop. */
 .work-card.work-card--healthi-thumb {
-  /* 88% of the card width keeps clear orange space around the centred logo. */
-  background: #ff9e44 url("../assets/healthi-buddy-thumb.webp") center / 88% auto no-repeat;
+  background: #ffd6b0 url("../assets/healthi-buddy-thumb.webp") center / cover no-repeat;
   border: 0;
   /* Same hover-end jump fix as the ESGNX / Golf Team thumbnails. */
   will-change: transform;

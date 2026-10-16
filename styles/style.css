@@ -322,7 +322,7 @@ a {
 /* ESGNX: show the whole thumbnail and extend its flat backdrop colour
    (sampled from the image edges) into whatever space is left over. */
 .work-card--esgnx-thumb {
-  background-color: #95c4af;
+  background-color: #e3e0f3;
   background-size: contain;
   background-position: center;
   /* Stay on a compositor layer so the image isn't re-snapped to whole
@@ -815,6 +815,14 @@ a {
 
 .work-card.placeholder {
   cursor: default;
+}
+
+/* Hana Pay: whole logo image visible; its flat green backdrop (#2d9078,
+   sampled from the image edges) extends into the rest of the card. Kept on
+   a compositor layer so the image isn't re-snapped on hover end. */
+.work-card--hanapay-thumb {
+  background: #2d9078 url("../assets/hanapay-thumb.webp") center / contain no-repeat;
+  will-change: transform;
 }
 
 /* Healthi Buddy: the whole logo image stays visible and its flat orange

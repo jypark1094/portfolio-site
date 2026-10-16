@@ -113,15 +113,6 @@ a {
   padding: 120px 48px 112px;
 }
 
-.intro__label {
-  margin: 0 0 24px;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-muted);
-}
-
 .intro__title {
   max-width: 1000px;
   margin: 0 0 32px;
@@ -132,17 +123,16 @@ a {
   text-wrap: balance;
 }
 
+/* One line on desktop; it wraps again on narrow screens (≤900px). */
 .intro__text {
-  max-width: 560px;
   margin: 0;
   font-size: 18px;
   color: var(--color-muted);
-  text-wrap: pretty;
+  white-space: nowrap;
 }
 
-/* One-time entrance on page load: label → title → text,
-   staggered by a short delay. */
-.intro__label,
+/* One-time entrance on page load: title → text, staggered by a short
+   delay. */
 .intro__title,
 .intro__text {
   animation: intro-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -168,7 +158,6 @@ a {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .intro__label,
   .intro__title,
   .intro__text {
     animation: none;
@@ -1368,6 +1357,11 @@ a {
 }
 
 @media (max-width: 900px) {
+  .intro__text {
+    white-space: normal;
+    text-wrap: pretty;
+  }
+
   .work-modal.is-open {
     grid-template-columns: 1fr;
     overflow-y: auto;
@@ -1441,11 +1435,6 @@ a {
   .intro {
     padding-top: 72px;
     padding-bottom: 64px;
-  }
-
-  .intro__label {
-    margin-bottom: 16px;
-    font-size: 12px;
   }
 
   .intro__title {

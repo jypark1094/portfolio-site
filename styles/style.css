@@ -1000,20 +1000,58 @@ a {
   pointer-events: none;
 }
 
-/* Healthi Buddy detail scene (Figma "Slide 16:9 - 1", 1920×1080): two long
-   app screens scroll like a user swiping, one after the other, inside
-   360×924 rounded frames (slide y 100–1024) with a 4px outside stroke.
-   --u is one slide pixel. */
+/* Two-phone scroll scene used in detail popups (Healthy Buddy, Hana Pay).
+   Two long app screens scroll like a user swiping, one after the other,
+   inside 360×924 rounded frames with a 4px outside stroke. Each scene
+   modifier supplies its Figma slide's numbers as custom properties:
+   --slide-w / --slide-h  slide size; --band  width of the centre band that
+                          holds the phones (never wider than the slot)
+   --win-top, --win-left-x, --win-right-x  frame position (stroke included)
+   --u is one slide pixel. The scroll keyframes for each scene are below. */
 .hb-scene {
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
   border-radius: 8px;
-  /* The slide's Figma linear gradient (stops 0 / 51.44 / 100%) converted
-     from its gradientTransform to a CSS angle. */
-  background: linear-gradient(119.37deg, #ffebd8 0%, #e8fffb 51.44%, #d2cdff 100%);
+  background: var(--scene-bg);
   container-type: size;
+}
+
+/* Healthy Buddy (Figma "Slide 16:9 - 1"). The gradient is the slide's
+   Figma linear gradient converted from its gradientTransform. */
+.hb-scene--healthi {
+  --scene-bg: linear-gradient(119.37deg, #ffebd8 0%, #e8fffb 51.44%, #d2cdff 100%);
+  --slide-w: 1920;
+  --slide-h: 1080;
+  --band: 1080;
+  --win-top: 96;
+  --win-left-x: 516;
+  --win-right-x: 1036;
+}
+
+.hb-scene--healthi .hb-window--left {
+  background-color: #ff9e44;
+}
+
+.hb-scene--healthi .hb-window--right {
+  background-color: #8071fc;
+}
+
+/* Hana Pay (Figma "Slide 16:9 - 11", 1600×1080). */
+.hb-scene--hana {
+  --scene-bg: linear-gradient(124.5deg, #d4eee6 0%, #9cc2d9 100%);
+  --slide-w: 1600;
+  --slide-h: 1080;
+  --band: 1000;
+  --win-top: 74;
+  --win-left-x: 396;
+  --win-right-x: 836;
+}
+
+.hb-scene--hana .hb-window {
+  background-color: #ffffff;
+  box-shadow: 0 calc(var(--u) * 4) calc(var(--u) * 32) rgba(0, 0, 0, 0.16);
 }
 
 /* The gallery thumbnail is a still, scaled-down copy of the scene. */
@@ -1030,18 +1068,21 @@ a {
   left: 50%;
   top: 50%;
   /* Fill the slot's height, but never let the centre band that holds the
-     phones (slide x 420–1500, 1080px wide) get wider than the slot; the
-     plain gradient at the slide's far left/right may be cropped. */
-  width: min(100cqh * 16 / 9, 100cqw * 1920 / 1080);
-  aspect-ratio: 16 / 9;
+     phones get wider than the slot; the plain gradient at the slide's far
+     left/right may be cropped. */
+  width: min(
+    100cqh * var(--slide-w) / var(--slide-h),
+    100cqw * var(--slide-w) / var(--band)
+  );
+  aspect-ratio: var(--slide-w) / var(--slide-h);
   transform: translate(-50%, -50%);
   container-type: size;
 }
 
 .hb-window {
-  --u: calc(100cqw / 1920);
+  --u: calc(100cqw / var(--slide-w));
   position: absolute;
-  top: calc(var(--u) * 96);
+  top: calc(var(--u) * var(--win-top));
   width: calc(var(--u) * 368);
   height: calc(var(--u) * 932);
   overflow: hidden;
@@ -1050,81 +1091,255 @@ a {
 }
 
 .hb-window--left {
-  left: calc(var(--u) * 516);
-  background-color: #ff9e44;
+  left: calc(var(--u) * var(--win-left-x));
 }
 
 .hb-window--right {
-  left: calc(var(--u) * 1036);
-  background-color: #8071fc;
+  left: calc(var(--u) * var(--win-right-x));
 }
 
 .hb-shot {
   display: block;
   width: 100%;
   height: auto;
-  animation: 14s infinite;
+  animation-iteration-count: infinite;
 }
 
-/* One 14s cycle: left scrolls down slowly, flicks back up past the top and
-   settles like a damped spring (overshoot ~14 slide px, a quarter of that
-   back the other way, then rest), then the right does the same. The
-   down-scroll eases in gently and decelerates over a long tail, like a
-   finger drag letting go. Scroll distance is (screen height − 924 visible
-   px) ÷ screen height: left 1629 → 43.28%, right 1334 → 30.73%. */
-.hb-window--left .hb-shot {
-  animation-name: hb-scroll-left;
+/* Scroll motion, modelled on a screen recording of someone browsing: each
+   screen is scrolled by a series of finger flicks (a fast start that decays
+   into a long momentum glide, then a short rest), flicked back to the top
+   with a small spring bounce, then the other screen does the same. The
+   keyframes are generated per scene and window: flicks vary slightly in
+   length, scroll = (screen height − 924) ÷ screen height. */
+/* healthi: 11.2s cycle (left 2 flicks, right 2 flicks) */
+.hb-scene--healthi .hb-window--left .hb-shot {
+  animation-name: hb-healthi-left;
+  animation-duration: 11.2s;
 }
 
-.hb-window--right .hb-shot {
-  animation-name: hb-scroll-right;
+.hb-scene--healthi .hb-window--right .hb-shot {
+  animation-name: hb-healthi-right;
+  animation-duration: 11.2s;
 }
 
-@keyframes hb-scroll-left {
+@keyframes hb-healthi-left {
   0%,
-  5.71% {
+  7.14% {
     transform: translateY(0);
-    animation-timing-function: cubic-bezier(0.37, 0, 0.2, 1);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
   }
-  41.43%,
-  45.71% {
+  16.96% {
+    transform: translateY(-23.76%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  19.64% {
+    transform: translateY(-23.76%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  29.46% {
+    transform: translateY(-43.28%);
+  }
+  33.93% {
     transform: translateY(-43.28%);
     animation-timing-function: cubic-bezier(0.45, 0, 0.2, 1);
   }
-  48.57% {
+  37.95% {
     transform: translateY(0.86%);
     animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
   }
-  50.71% {
+  40.63% {
     transform: translateY(-0.22%);
     animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
   }
-  52.86%,
+  43.3%,
   100% {
     transform: translateY(0);
   }
 }
 
-@keyframes hb-scroll-right {
+@keyframes hb-healthi-right {
   0%,
-  57.14% {
+  51.34% {
     transform: translateY(0);
-    animation-timing-function: cubic-bezier(0.37, 0, 0.2, 1);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
   }
-  78.57%,
-  82.86% {
+  61.16% {
+    transform: translateY(-16.87%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  63.84% {
+    transform: translateY(-16.87%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  73.66% {
+    transform: translateY(-30.73%);
+  }
+  78.13% {
     transform: translateY(-30.73%);
     animation-timing-function: cubic-bezier(0.45, 0, 0.2, 1);
   }
-  85.71% {
+  82.14% {
     transform: translateY(1.05%);
     animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
   }
-  87.86% {
+  84.82% {
     transform: translateY(-0.27%);
     animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
   }
-  90%,
+  87.5%,
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* hana: 23.8s cycle (left 6 flicks, right 7 flicks) */
+.hb-scene--hana .hb-window--left .hb-shot {
+  animation-name: hb-hana-left;
+  animation-duration: 23.8s;
+}
+
+.hb-scene--hana .hb-window--right .hb-shot {
+  animation-name: hb-hana-right;
+  animation-duration: 23.8s;
+}
+
+@keyframes hb-hana-left {
+  0%,
+  3.36% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  7.98% {
+    transform: translateY(-13.89%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  9.24% {
+    transform: translateY(-13.89%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  13.87% {
+    transform: translateY(-25.3%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  15.13% {
+    transform: translateY(-25.3%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  19.75% {
+    transform: translateY(-38.2%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  21.01% {
+    transform: translateY(-38.2%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  25.63% {
+    transform: translateY(-49.36%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  26.89% {
+    transform: translateY(-49.36%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  31.51% {
+    transform: translateY(-62.75%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  32.77% {
+    transform: translateY(-62.75%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  37.39% {
+    transform: translateY(-74.41%);
+  }
+  39.5% {
+    transform: translateY(-74.41%);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.2, 1);
+  }
+  41.39% {
+    transform: translateY(0.39%);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  }
+  42.65% {
+    transform: translateY(-0.1%);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  }
+  43.91%,
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes hb-hana-right {
+  0%,
+  47.69% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  52.31% {
+    transform: translateY(-12.23%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  53.57% {
+    transform: translateY(-12.23%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  58.19% {
+    transform: translateY(-22.27%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  59.45% {
+    transform: translateY(-22.27%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  64.08% {
+    transform: translateY(-33.63%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  65.34% {
+    transform: translateY(-33.63%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  69.96% {
+    transform: translateY(-43.45%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  71.22% {
+    transform: translateY(-43.45%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  75.84% {
+    transform: translateY(-55.24%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  77.1% {
+    transform: translateY(-55.24%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  81.72% {
+    transform: translateY(-65.5%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  82.98% {
+    transform: translateY(-65.5%);
+    animation-timing-function: cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  87.61% {
+    transform: translateY(-76.64%);
+  }
+  89.71% {
+    transform: translateY(-76.64%);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.2, 1);
+  }
+  91.6% {
+    transform: translateY(0.35%);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  }
+  92.86% {
+    transform: translateY(-0.09%);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  }
+  94.12%,
   100% {
     transform: translateY(0);
   }
